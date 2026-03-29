@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R.Dolfini Arch. — Architettura e Consulenza BIM</title>
+  <meta name="description" content="Studio di architettura e consulenza BIM a Firenze. Progettazione architettonica, rilievo e modellazione BIM, rendering 3D, formazione e esperienze VR.">
+  <link rel="stylesheet" href="css/style.css?v=12">
+  <script>if(sessionStorage.getItem('rdarch-intro')){document.documentElement.classList.add('intro-skip');}</script>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <img src="immagini/Logo%20Personale%20Invert.png" alt="" class="logo-mark" aria-hidden="true">
+        R.DOLFINI <span>ARCH.</span>
+      </a>
+      <div class="navbar__links">
+        <a href="progetti.html">Progetti</a>
+        <a href="servizi.html">Servizi</a>
+        <a href="chi-sono.html">Chi sono</a>
+        <a href="contatti.html">Contatti</a>
+      </div>
+      <button class="navbar__toggle" id="menuToggle" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="progetti.html">Progetti</a>
+    <a href="servizi.html">Servizi</a>
+    <a href="chi-sono.html">Chi sono</a>
+    <a href="contatti.html">Contatti</a>
+  </div>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+
+    <svg class="hero__bg-grid" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <pattern id="rdarch-gs" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#B85C38" stroke-width="0.4" opacity="0.5"/>
+        </pattern>
+        <pattern id="rdarch-gl" x="0" y="0" width="300" height="300" patternUnits="userSpaceOnUse">
+          <rect width="300" height="300" fill="url(#rdarch-gs)"/>
+          <path d="M 300 0 L 0 0 0 300" fill="none" stroke="#B85C38" stroke-width="0.9" opacity="0.7"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#rdarch-gl)" opacity="0.07"/>
+    </svg>
+
+    <span class="hero__bg-word" aria-hidden="true">Arch.</span>
+
+    <div class="container hero__content">
+      <h1 class="hero__tagline">
+        <span class="hero__line">Architettura <em>e' tradizione</em></span>
+        <span class="hero__line">che interroga il futuro</span>
+      </h1>
+      <p class="hero__subtitle">
+        Progettazione architettonica e consulenza BIM a Firenze.
+        Dal concept al cantiere, con tecnologie di modellazione avanzata.
+      </p>
+      <div class="hero__cta">
+        <a href="contatti.html" class="btn btn--primary">
+          Parliamone
+          <span class="btn__arrow">&rarr;</span>
+        </a>
+        <a href="progetti.html" class="btn btn--outline">
+          Vedi i progetti
+        </a>
+      </div>
+    </div>
+    <div class="hero__scroll-indicator">
+      <span>Scroll</span>
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 4v16m0 0l-4-4m4 4l4-4"/>
+      </svg>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ========== SERVIZI PREVIEW ========== -->
+  <section class="section" id="servizi">
+    <div class="container">
+      <div class="section__header">
+        <span class="label section__label">Competenze</span>
+        <h2 class="section__title">Progettazione integrata, dal rilievo alla realta' virtuale</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-card__bg-num" aria-hidden="true">01</span>
+          <span class="service-card__number">01</span>
+          <h3 class="service-card__title">Rilievo e Modellazione BIM</h3>
+          <p class="service-card__desc">
+            Rilievo architettonico e creazione di modelli BIM dettagliati per progetti nuovi ed esistenti.
+          </p>
+          <a href="servizi.html" class="service-card__link">
+            Scopri di piu' <span>&rarr;</span>
+          </a>
+        </div>
+        <div class="service-card">
+          <span class="service-card__bg-num" aria-hidden="true">02</span>
+          <span class="service-card__number">02</span>
+          <h3 class="service-card__title">Consulenza BIM</h3>
+          <p class="service-card__desc">
+            Supporto strategico per studi e imprese nell'adozione di processi e strumenti BIM.
+          </p>
+          <a href="servizi.html" class="service-card__link">
+            Scopri di piu' <span>&rarr;</span>
+          </a>
+        </div>
+        <div class="service-card">
+          <span class="service-card__bg-num" aria-hidden="true">03</span>
+          <span class="service-card__number">03</span>
+          <h3 class="service-card__title">Progettazione Architettonica</h3>
+          <p class="service-card__desc">
+            Dal concept preliminare al progetto esecutivo, per interventi di piccola e media dimensione.
+          </p>
+          <a href="servizi.html" class="service-card__link">
+            Scopri di piu' <span>&rarr;</span>
+          </a>
+        </div>
+        <div class="service-card">
+          <span class="service-card__bg-num" aria-hidden="true">04</span>
+          <span class="service-card__number">04</span>
+          <h3 class="service-card__title">Rendering 3D</h3>
+          <p class="service-card__desc">
+            Visualizzazioni fotorealistiche con Blender e Unreal Engine per comunicare il progetto.
+          </p>
+          <a href="servizi.html" class="service-card__link">
+            Scopri di piu' <span>&rarr;</span>
+          </a>
+        </div>
+        <div class="service-card">
+          <span class="service-card__bg-num" aria-hidden="true">05</span>
+          <span class="service-card__number">05</span>
+          <h3 class="service-card__title">Formazione BIM</h3>
+          <p class="service-card__desc">
+            Corsi su misura per professionisti e studi che vogliono integrare il BIM nel proprio workflow.
+          </p>
+          <a href="servizi.html" class="service-card__link">
+            Scopri di piu' <span>&rarr;</span>
+          </a>
+        </div>
+        <div class="service-card">
+          <span class="service-card__bg-num" aria-hidden="true">06</span>
+          <span class="service-card__number">06</span>
+          <h3 class="service-card__title">Esperienze VR</h3>
+          <p class="service-card__desc">
+            Tour immersivi con Oculus Quest 3 per esplorare il progetto prima della realizzazione.
+          </p>
+          <a href="servizi.html" class="service-card__link">
+            Scopri di piu' <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT PREVIEW ========== -->
+  <section class="section">
+    <div class="container">
+      <div class="about-preview">
+        <div class="about-preview__image">
+          <!-- Placeholder — sostituire con foto reale -->
+          <div style="width:100%;height:100%;background:linear-gradient(135deg, #E8E8E4 0%, #D0D0CC 100%);display:flex;align-items:center;justify-content:center;color:var(--color-text-tertiary);font-size:var(--text-sm);">
+            Foto profilo
+          </div>
+        </div>
+        <div class="about-preview__text">
+          <span class="label">Chi sono</span>
+          <h2>Roberto Dolfini</h2>
+
+          <p>
+            Architetto e BIM coordinator a Firenze. Mi occupo di progettazione
+            architettonica e consulenza BIM, integrando tecnologie avanzate di
+            modellazione e visualizzazione nel processo progettuale.
+          </p>
+          <p>
+            Credo in un'architettura che unisce tradizione e innovazione tecnologica,
+            dove il BIM non e' solo uno strumento ma un metodo di pensiero.
+          </p>
+          <a href="chi-sono.html" class="btn btn--outline">
+            Scopri di piu'
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Hai un progetto in mente?</h2>
+      <p>Raccontami la tua idea, troviamo insieme la soluzione giusta.</p>
+      <a href="contatti.html" class="btn btn--primary">
+        Scrivimi
+        <span class="btn__arrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo">
+            <img src="immagini/Logo%20Personale.png" alt="" class="logo-mark" aria-hidden="true">
+          </a>
+          <p>
+            Architettura e consulenza BIM a Firenze.
+            Dal concept al cantiere, con tecnologie avanzate.
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Navigazione</h4>
+          <a href="progetti.html">Progetti</a>
+          <a href="servizi.html">Servizi</a>
+          <a href="chi-sono.html">Chi sono</a>
+          <a href="contatti.html">Contatti</a>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Servizi</h4>
+          <a href="servizi.html">Modellazione BIM</a>
+          <a href="servizi.html">Consulenza BIM</a>
+          <a href="servizi.html">Progettazione</a>
+          <a href="servizi.html">Rendering 3D</a>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Contatti</h4>
+          <a href="mailto:robertodolfini@gmail.com">robertodolfini@gmail.com</a>
+          <a href="https://www.linkedin.com/in/robertodolfini/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.instagram.com/rdolfini.arch/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>P.IVA 16120331000 &mdash; Sede Legale: Via del Leone 21, 50124 Firenze. &copy; 2026 Roberto Dolfini &mdash; Tutti i diritti riservati.</span>
+        <a href="#" class="privacy-trigger">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== PRIVACY MODAL ========== -->
+  <div class="modal-overlay" id="privacyModal">
+    <div class="modal">
+      <button class="modal__close" id="modalClose" aria-label="Chiudi">&times;</button>
+      <iframe src="https://www.iubenda.com/privacy-policy/10969358" class="modal__iframe" title="Privacy Policy"></iframe>
+    </div>
+  </div>
+
+  <!-- ========== INTRO SCREEN ========== -->
+  <div class="site-intro" id="siteIntro" aria-hidden="true">
+    <div class="site-intro__inner">
+      <img src="immagini/Logo%20Personale.png" alt="" class="site-intro__logo">
+      <svg class="site-intro__arc" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="80" cy="80" r="70" stroke="#B85C38" stroke-width="1" transform="rotate(-90 80 80)" class="site-intro__circle"/>
+      </svg>
+    </div>
+  </div>
+
+  <script src="js/main.js?v=8"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+
+# Preview, backup e file di sviluppo (non vanno in produzione)
+_backup/
+index_modificato.html
+index_modificato_ULTRA.html
+font-test.html
+palette-test.html
+SESSION_LOG.md
