@@ -56,9 +56,18 @@
   <!-- ========== PROJECTS GRID ========== -->
   <section class="section">
     <div class="container">
-      <div class="projects-grid">
 
-        <a href="#" class="project-card project-card--featured">
+      <!-- Filtri -->
+      <div class="project-filters">
+        <button class="project-filter active" data-filter="tutti">Tutti</button>
+        <button class="project-filter" data-filter="progettazione">Progettazione</button>
+        <button class="project-filter" data-filter="bim">BIM</button>
+        <button class="project-filter" data-filter="rendering">Rendering</button>
+      </div>
+
+      <div class="projects-grid" id="projects-grid">
+
+        <a href="#" class="project-card" data-category="progettazione">
           <div class="project-card__image">
             <div class="project-card__placeholder">Immagine progetto</div>
           </div>
@@ -69,7 +78,7 @@
           </div>
         </a>
 
-        <a href="#" class="project-card">
+        <a href="#" class="project-card" data-category="bim">
           <div class="project-card__image">
             <div class="project-card__placeholder">Immagine progetto</div>
           </div>
@@ -80,7 +89,7 @@
           </div>
         </a>
 
-        <a href="#" class="project-card">
+        <a href="#" class="project-card" data-category="rendering">
           <div class="project-card__image">
             <div class="project-card__placeholder">Immagine progetto</div>
           </div>
@@ -91,7 +100,7 @@
           </div>
         </a>
 
-        <a href="#" class="project-card">
+        <a href="#" class="project-card" data-category="progettazione">
           <div class="project-card__image">
             <div class="project-card__placeholder">Immagine progetto</div>
           </div>
@@ -102,7 +111,7 @@
           </div>
         </a>
 
-        <a href="#" class="project-card">
+        <a href="#" class="project-card" data-category="progettazione">
           <div class="project-card__image">
             <div class="project-card__placeholder">Immagine progetto</div>
           </div>
@@ -113,12 +122,12 @@
           </div>
         </a>
 
-        <a href="#" class="project-card">
+        <a href="#" class="project-card" data-category="bim">
           <div class="project-card__image">
             <div class="project-card__placeholder">Immagine progetto</div>
           </div>
           <div class="project-card__info">
-            <span class="label">VR Experience</span>
+            <span class="label">BIM</span>
             <h3>Titolo Progetto 06</h3>
             <p>Breve descrizione del progetto, tipologia di intervento e tecnologie utilizzate.</p>
           </div>
@@ -127,6 +136,66 @@
       </div>
     </div>
   </section>
+
+  <style>
+    .project-filters {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .project-filter {
+      padding: 0.5rem 1.4rem;
+      background: transparent;
+      border: 1px solid rgba(26, 26, 26, 0.2);
+      color: var(--color-text-secondary, #555);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    }
+    .project-filter:hover {
+      border-color: #B85C38;
+      color: #B85C38;
+    }
+    .project-filter.active {
+      background: #B85C38;
+      border-color: #B85C38;
+      color: #FAFAF8;
+    }
+    .project-card {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .project-card.is-hidden {
+      display: none;
+    }
+  </style>
+
+  <script>
+    (function() {
+      var filters = document.querySelectorAll('.project-filter');
+      var cards   = document.querySelectorAll('.project-card');
+
+      filters.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var selected = btn.getAttribute('data-filter');
+
+          filters.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          cards.forEach(function(card) {
+            var cat = card.getAttribute('data-category');
+            if (selected === 'tutti' || cat === selected) {
+              card.classList.remove('is-hidden');
+            } else {
+              card.classList.add('is-hidden');
+            }
+          });
+        });
+      });
+    })();
+  </script>
 
   <!-- ========== CTA ========== -->
   <section class="cta-section">

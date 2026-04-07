@@ -60,7 +60,7 @@
 
         <!-- Form -->
         <div class="contact-form">
-          <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <form id="contact-form">
             <div class="form-group">
               <label for="name">Nome</label>
               <input type="text" id="name" name="name" required placeholder="Il tuo nome">
@@ -85,10 +85,11 @@
               <label for="message">Messaggio</label>
               <textarea id="message" name="message" rows="6" required placeholder="Raccontami il tuo progetto..."></textarea>
             </div>
-            <button type="submit" class="btn btn--primary">
+            <button type="submit" class="btn btn--primary" id="submit-btn">
               Invia messaggio
               <span class="btn__arrow">&rarr;</span>
             </button>
+            <p id="form-feedback" style="display:none; margin-top:1rem; font-size:.95rem;"></p>
           </form>
         </div>
 
@@ -153,6 +154,86 @@
     </div>
   </footer>
 
+  <!-- ========== SUCCESS MODAL ========== -->
+  <div class="success-overlay" id="successModal">
+    <div class="success-modal">
+      <div class="success-modal__icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="15" stroke="#B85C38" stroke-width="1.5"/>
+          <path d="M9 16.5l5 5 9-10" stroke="#B85C38" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="success-modal__title">Grazie per avermi contattato</h3>
+      <p class="success-modal__text">Provvedero' a rispondervi entro 24 ore.</p>
+      <button class="success-modal__close" id="successModalClose">Chiudi</button>
+    </div>
+  </div>
+
+  <style>
+    .success-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .success-overlay.is-visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .success-modal {
+      background: #FAFAF8;
+      border: 1px solid rgba(184, 92, 56, 0.2);
+      padding: 3rem 2.5rem;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      transform: translateY(20px);
+      transition: transform 0.35s ease;
+    }
+    .success-overlay.is-visible .success-modal {
+      transform: translateY(0);
+    }
+    .success-modal__icon {
+      margin-bottom: 1.5rem;
+    }
+    .success-modal__title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.6rem;
+      color: #1A1A1A;
+      margin-bottom: 0.75rem;
+      font-weight: 400;
+    }
+    .success-modal__text {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .success-modal__close {
+      display: inline-block;
+      padding: 0.65rem 2rem;
+      background: transparent;
+      border: 1px solid #B85C38;
+      color: #B85C38;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .success-modal__close:hover {
+      background: #B85C38;
+      color: #FAFAF8;
+    }
+  </style>
+
   <!-- ========== PRIVACY MODAL ========== -->
   <div class="modal-overlay" id="privacyModal">
     <div class="modal">
@@ -162,5 +243,57 @@
   </div>
 
   <script src="js/main.js?v=8"></script>
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init({ publicKey: 'Rt-VJd028LaueMg5j' });
+
+      var form = document.getElementById('contact-form');
+      var btn  = document.getElementById('submit-btn');
+      var feedback = document.getElementById('form-feedback');
+      var successModal = document.getElementById('successModal');
+      var successClose = document.getElementById('successModalClose');
+
+      successClose.addEventListener('click', function() {
+        successModal.classList.remove('is-visible');
+      });
+      successModal.addEventListener('click', function(e) {
+        if (e.target === successModal) successModal.classList.remove('is-visible');
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        btn.disabled = true;
+        btn.textContent = 'Invio in corso...';
+        feedback.style.display = 'none';
+
+        var params = {
+          name:    document.getElementById('name').value,
+          email:   document.getElementById('email').value,
+          title:   document.getElementById('subject').value,
+          message: document.getElementById('message').value
+        };
+
+        emailjs.send('service_1d5tdj9', 'template_5eenl8b', params)
+          .then(function() {
+            form.reset();
+            successModal.classList.add('is-visible');
+          })
+          .catch(function(err) {
+            feedback.style.display = 'block';
+            feedback.style.color = '#c0392b';
+            feedback.textContent = 'Errore nell\'invio. Riprova o scrivimi direttamente a robertodolfini@gmail.com.';
+            console.error('EmailJS error:', err);
+          })
+          .finally(function() {
+            btn.disabled = false;
+            btn.innerHTML = 'Invia messaggio <span class="btn__arrow">&rarr;</span>';
+          });
+      });
+    })();
+  </script>
 </body>
 </html>
