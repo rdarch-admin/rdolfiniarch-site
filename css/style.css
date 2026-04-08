@@ -449,7 +449,6 @@ h4 { font-size: var(--text-xl); }
 
 .btn--outline:hover {
   border-color: var(--color-text);
-  transform: translateY(-2px);
 }
 
 .btn__arrow {

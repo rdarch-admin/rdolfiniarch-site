@@ -53,56 +53,162 @@
       </div>
       <h1>Strumenti</h1>
       <p class="page-header__subtitle">
-        Strumenti nati da problemi reali incontrati sul campo durante rilievi e sopralluoghi.
-        Li condivido gratuitamente con la community.
+        Credo nella condivisione di strumenti utili per semplificare la vita di noi progettisti.
+        L'obiettivo e' crescere insieme e snellire i processi tediosi; per questo condivido
+        tool nati da problemi reali incontrati durante rilievi, sopralluoghi e, piu' in generale,
+        nella nostra professione.
       </p>
     </div>
   </section>
 
-  <!-- ========== TOOLS GRID ========== -->
+  <!-- ========== TOOLS LIST ========== -->
   <section class="section">
     <div class="container">
-      <div class="services-grid">
+      <div class="tools-list">
 
-        <div class="service-card">
-          <span class="service-card__bg-num" aria-hidden="true">01</span>
-          <span class="service-card__number">01</span>
-          <h3 class="service-card__title">Raddrizzamento Fotografico</h3>
-          <p class="service-card__desc">
-            Correzione prospettica di fotografie da rilievo architettonico.
-            Carica una foto, seleziona i punti di riferimento e ottieni un'immagine raddrizzata pronta per il disegno.
-          </p>
-          <span class="label" style="margin-top:auto; font-size:0.7rem;">HTML standalone &mdash; nessuna installazione</span>
-          <!-- PLACEHOLDER: inserire link allo strumento quando disponibile -->
-        </div>
-
-        <div class="service-card">
-          <span class="service-card__bg-num" aria-hidden="true">02</span>
-          <span class="service-card__number">02</span>
-          <h3 class="service-card__title">Fix Nuvole di Punti</h3>
-          <p class="service-card__desc">
-            Pulizia e correzione di nuvole di punti da laser scanner.
-            Rimuovi il rumore, correggi allineamenti e prepara i dati per l'importazione in ambiente BIM.
-          </p>
-          <span class="label" style="margin-top:auto; font-size:0.7rem;">HTML standalone &mdash; nessuna installazione</span>
-          <!-- PLACEHOLDER: inserire link allo strumento quando disponibile -->
-        </div>
-
-        <div class="service-card">
-          <span class="service-card__bg-num" aria-hidden="true">03</span>
-          <span class="service-card__number">03</span>
-          <h3 class="service-card__title">Gestore Fotografie da Sopralluogo</h3>
-          <p class="service-card__desc">
-            Organizzazione e gestione delle foto di cantiere e sopralluogo.
-            Tagga, ordina e esporta le foto con metadati strutturati per la documentazione di progetto.
-          </p>
-          <span class="label" style="margin-top:auto; font-size:0.7rem;">HTML standalone &mdash; nessuna installazione</span>
-          <!-- PLACEHOLDER: inserire link allo strumento quando disponibile -->
+        <div class="tool-toggle">
+          <button class="tool-toggle__header" aria-expanded="false">
+            <div class="tool-toggle__left">
+              <span class="tool-toggle__number">01</span>
+              <h3 class="tool-toggle__title">Perspective Rectifier</h3>
+            </div>
+            <span class="tool-toggle__icon">+</span>
+          </button>
+          <div class="tool-toggle__body">
+            <p>
+              Correzione prospettica di fotografie da rilievo architettonico.
+              Carica una foto, seleziona i quattro angoli o le verticali ed orizzontali
+              della superficie da raddrizzare e ottieni un'immagine rettificata pronta
+              per il ridisegno in CAD.
+            </p>
+            <div class="tool-toggle__meta">
+              <span class="label">HTML standalone &mdash; nessuna installazione</span>
+              <span class="label">v1.0</span>
+            </div>
+            <a href="#" class="btn btn--outline tool-toggle__download">
+              Download
+              <span class="btn__arrow">&darr;</span>
+            </a>
+          </div>
         </div>
 
       </div>
     </div>
   </section>
+
+  <style>
+    .tools-list {
+      max-width: 760px;
+    }
+    .tool-toggle {
+      border-bottom: 1px solid rgba(26, 26, 26, 0.12);
+    }
+    .tool-toggle__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 1.5rem 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .tool-toggle__header:hover {
+      color: #B85C38;
+    }
+    .tool-toggle__left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .tool-toggle__number {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: #B85C38;
+      font-weight: 500;
+      min-width: 1.5rem;
+    }
+    .tool-toggle__title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: inherit;
+      margin: 0;
+    }
+    .tool-toggle__icon {
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: #B85C38;
+      transition: transform 0.3s ease;
+      line-height: 1;
+    }
+    .tool-toggle.is-open .tool-toggle__icon {
+      transform: rotate(45deg);
+    }
+    .tool-toggle__body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      padding: 0 0 0 2.75rem;
+    }
+    .tool-toggle.is-open .tool-toggle__body {
+      max-height: 300px;
+      padding: 0 0 2rem 2.75rem;
+    }
+    .tool-toggle__body p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--color-text-secondary, #555);
+      margin-bottom: 1.25rem;
+      max-width: 540px;
+    }
+    .tool-toggle__meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .tool-toggle__download {
+      font-size: 0.8rem;
+      padding: 0.5rem 1.6rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .tool-toggle__download::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: #B85C38;
+      transition: width 0.3s ease;
+      z-index: -1;
+    }
+    .tool-toggle__download:hover {
+      color: #FAFAF8;
+      border-color: #B85C38;
+    }
+    .tool-toggle__download:hover::before {
+      width: 100%;
+    }
+  </style>
+
+  <script>
+    (function() {
+      var toggles = document.querySelectorAll('.tool-toggle__header');
+      toggles.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var parent = btn.closest('.tool-toggle');
+          var isOpen = parent.classList.contains('is-open');
+          parent.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', !isOpen);
+        });
+      });
+    })();
+  </script>
 
   <!-- ========== CTA ========== -->
   <section class="cta-section">
