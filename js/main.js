@@ -226,4 +226,23 @@
     }
   });
 
+  /* --- Servizi accordion --- */
+  var serviziItems = document.querySelectorAll('.servizi-item');
+  serviziItems.forEach(function (item) {
+    var trigger = item.querySelector('.servizi-item__trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', function () {
+      var isOpen = item.classList.contains('is-open');
+      serviziItems.forEach(function (i) {
+        i.classList.remove('is-open');
+        var t = i.querySelector('.servizi-item__trigger');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
 })();
