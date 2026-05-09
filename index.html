@@ -9,7 +9,7 @@
   <meta property="og:title" content="Architetto e BIM Coordinator a Firenze | R.Dolfini Arch.">
   <meta property="og:description" content="Studio di architettura e consulenza BIM a Firenze. Progettazione architettonica, rilievo e modellazione BIM, rendering 3D.">
   <meta property="og:url" content="https://www.rdolfiniarch.it/">
-  <link rel="stylesheet" href="css/style.css?v=12">
+  <link rel="stylesheet" href="css/style.css?v=24">
   <script>if(sessionStorage.getItem('rdarch-intro')){document.documentElement.classList.add('intro-skip');}</script>
 </head>
 <body>
@@ -72,13 +72,12 @@
         <span class="hero__line">che interroga il futuro</span>
       </h1>
       <p class="hero__subtitle">
-        Progettazione architettonica e consulenza BIM a Firenze.
+        Progettazione architettonica e consulenza BIM.
         Dal concept al cantiere, con tecnologie di modellazione avanzata.
       </p>
       <div class="hero__cta">
         <a href="contatti.html" class="btn btn--primary">
           Parliamone
-          <span class="btn__arrow">&rarr;</span>
         </a>
         <a href="progetti.html" class="btn btn--outline">
           Vedi i progetti
@@ -99,13 +98,11 @@
     <div class="container">
       <div class="servizi-layout">
         <div class="servizi-layout__header">
-          <span class="label">Servizi</span>
-          <h2>Dal concept al cantiere</h2>
+          <h2 class="servizi-layout__title">Dal concept al cantiere</h2>
         </div>
         <div class="servizi-accordion">
           <div class="servizi-item">
             <button class="servizi-item__trigger" aria-expanded="false">
-              <span class="servizi-item__num">01</span>
               <span class="servizi-item__name">Rilievo e Modellazione BIM</span>
               <span class="servizi-item__icon" aria-hidden="true">+</span>
             </button>
@@ -118,7 +115,6 @@
           </div>
           <div class="servizi-item">
             <button class="servizi-item__trigger" aria-expanded="false">
-              <span class="servizi-item__num">02</span>
               <span class="servizi-item__name">Progettazione Architettonica</span>
               <span class="servizi-item__icon" aria-hidden="true">+</span>
             </button>
@@ -131,7 +127,6 @@
           </div>
           <div class="servizi-item">
             <button class="servizi-item__trigger" aria-expanded="false">
-              <span class="servizi-item__num">03</span>
               <span class="servizi-item__name">Rendering 3D</span>
               <span class="servizi-item__icon" aria-hidden="true">+</span>
             </button>
@@ -144,7 +139,6 @@
           </div>
           <div class="servizi-item">
             <button class="servizi-item__trigger" aria-expanded="false">
-              <span class="servizi-item__num">04</span>
               <span class="servizi-item__name">Esperienze VR</span>
               <span class="servizi-item__icon" aria-hidden="true">+</span>
             </button>
@@ -157,7 +151,6 @@
           </div>
           <div class="servizi-item">
             <button class="servizi-item__trigger" aria-expanded="false">
-              <span class="servizi-item__num">05</span>
               <span class="servizi-item__name">Formazione BIM</span>
               <span class="servizi-item__icon" aria-hidden="true">+</span>
             </button>
@@ -170,7 +163,6 @@
           </div>
           <div class="servizi-item">
             <button class="servizi-item__trigger" aria-expanded="false">
-              <span class="servizi-item__num">06</span>
               <span class="servizi-item__name">Consulenza BIM</span>
               <span class="servizi-item__icon" aria-hidden="true">+</span>
             </button>
@@ -187,44 +179,47 @@
   </section>
 
   <!-- ========== ABOUT PREVIEW ========== -->
-  <section class="section">
+  <section class="section about-section">
     <div class="container">
-      <div class="about-preview">
-        <div class="about-preview__image">
-          <!-- Placeholder — sostituire con foto reale -->
-          <div style="width:100%;height:100%;background:linear-gradient(135deg, #E8E8E4 0%, #D0D0CC 100%);display:flex;align-items:center;justify-content:center;color:var(--color-text-tertiary);font-size:var(--text-sm);">
-            Foto profilo
+      <article class="about-card">
+        <figure class="about-card__media" aria-label="Ritratto al lavoro — placeholder">
+          <div class="about-card__placeholder">
+            <img src="immagini/Logo%20Personale%20Invert.png" alt="" class="about-card__placeholder-mark">
+            <span class="about-card__placeholder-corner about-card__placeholder-corner--tl" aria-hidden="true"></span>
+            <span class="about-card__placeholder-corner about-card__placeholder-corner--tr" aria-hidden="true"></span>
+            <span class="about-card__placeholder-corner about-card__placeholder-corner--bl" aria-hidden="true"></span>
+            <span class="about-card__placeholder-corner about-card__placeholder-corner--br" aria-hidden="true"></span>
+          </div>
+        </figure>
+
+        <div class="about-card__body">
+          <span class="label about-card__label">Chi sono</span>
+          <div class="about-card__row">
+            <div class="about-card__text">
+              <h2 class="about-card__name">Roberto Dolfini</h2>
+              <p class="about-card__lede">
+                Architetto e consulente BIM. Lavoro tra cantieri reali
+                e modelli digitali, integrando tradizione costruttiva
+                e tecnologie di ultima generazione.
+              </p>
+            </div>
+            <a href="chi-sono.html" class="about-card__link">
+              Conoscimi meglio <span aria-hidden="true">&rarr;</span>
+            </a>
           </div>
         </div>
-        <div class="about-preview__text">
-          <span class="label">Chi sono</span>
-          <h2>Roberto Dolfini</h2>
-
-          <p>
-            Architetto e BIM coordinator a Firenze. Mi occupo di progettazione
-            architettonica e consulenza BIM, integrando tecnologie avanzate di
-            modellazione e visualizzazione nel processo progettuale.
-          </p>
-          <p>
-            Credo in un'architettura che unisce tradizione e innovazione tecnologica,
-            dove il BIM non e' solo uno strumento ma un metodo di pensiero.
-          </p>
-          <a href="chi-sono.html" class="btn btn--outline">
-            Scopri di piu'
-          </a>
-        </div>
-      </div>
+      </article>
     </div>
   </section>
 
   <!-- ========== CTA ========== -->
   <section class="cta-section">
     <div class="container">
+      <p class="cta-section__label">Collaboriamo</p>
       <h2>Hai un progetto in mente?</h2>
       <p>Raccontami la tua idea, troviamo insieme la soluzione giusta.</p>
-      <a href="contatti.html" class="btn btn--primary">
+      <a href="contatti.html" class="btn btn--outline">
         Scrivimi
-        <span class="btn__arrow">&rarr;</span>
       </a>
     </div>
   </section>
@@ -237,10 +232,7 @@
           <a href="index.html" class="navbar__logo">
             <img src="immagini/Logo%20Personale.png" alt="" class="logo-mark" aria-hidden="true">
           </a>
-          <p>
-            Architettura e consulenza BIM a Firenze.
-            Dal concept al cantiere, con tecnologie avanzate.
-          </p>
+          <p>Progettazione architettonica e consulenza BIM.</p>
         </div>
         <div class="footer__col">
           <h4 class="footer__col-title">Navigazione</h4>
@@ -289,6 +281,6 @@
     </div>
   </div>
 
-  <script src="js/main.js?v=8"></script>
+  <script src="js/main.js?v=12"></script>
 </body>
 </html>
