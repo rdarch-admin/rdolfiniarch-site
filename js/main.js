@@ -142,7 +142,7 @@
   var revealUp = document.querySelectorAll(
     '.service-card, .cta-section, .section__header, .page-header, ' +
     '.service-detail, .project-card, .skill-group, .contact-grid, ' +
-    '.footer__grid'
+    '.footer__grid, .project-hero, .project-meta, .project-body, .project-gallery'
   );
 
   /* Directional reveals */
