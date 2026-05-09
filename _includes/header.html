@@ -1,0 +1,30 @@
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar" id="navbar">
+  <div class="container navbar__inner">
+    <a href="{{ '/index.html' | relative_url }}" class="navbar__logo">
+      <img src="{{ '/immagini/Logo%20Personale%20Invert.png' | relative_url }}" alt="" class="logo-mark" aria-hidden="true">
+      R.DOLFINI <span>ARCH.</span>
+    </a>
+    <div class="navbar__links">
+      <a href="{{ '/progetti.html' | relative_url }}"{% if page.nav_active == 'progetti' %} class="active"{% endif %}>Progetti</a>
+      <a href="{{ '/strumenti.html' | relative_url }}"{% if page.nav_active == 'strumenti' %} class="active"{% endif %}>Strumenti</a>
+      <a href="{{ '/servizi.html' | relative_url }}"{% if page.nav_active == 'servizi' %} class="active"{% endif %}>Servizi</a>
+      <a href="{{ '/chi-sono.html' | relative_url }}"{% if page.nav_active == 'chi-sono' %} class="active"{% endif %}>Chi sono</a>
+      <a href="{{ '/contatti.html' | relative_url }}"{% if page.nav_active == 'contatti' %} class="active"{% endif %}>Contatti</a>
+    </div>
+    <button class="navbar__toggle" id="menuToggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="{{ '/progetti.html' | relative_url }}">Progetti</a>
+  <a href="{{ '/strumenti.html' | relative_url }}">Strumenti</a>
+  <a href="{{ '/servizi.html' | relative_url }}">Servizi</a>
+  <a href="{{ '/chi-sono.html' | relative_url }}">Chi sono</a>
+  <a href="{{ '/contatti.html' | relative_url }}">Contatti</a>
+</div>
