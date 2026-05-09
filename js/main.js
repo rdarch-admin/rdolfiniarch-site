@@ -18,7 +18,7 @@
     }, 1700);
   }
 
-  /* --- Custom Cursor --- */
+  /* --- Custom Cursor (mix-blend-mode difference) --- */
   var cursorEl = document.createElement('div');
   cursorEl.className = 'custom-cursor';
   cursorEl.textContent = '+';
@@ -29,10 +29,6 @@
   var cursorSpeed = 0.3;
   var cursorVisible = false;
   var cursorHovering = false;
-  var cursorOnDark = false;
-
-  /* Selettore sezioni con sfondo scuro — aggiungere [data-bg-dark] a nuove sezioni */
-  var DARK_SELECTOR = '.footer, [data-bg-dark]';
 
   /* Disabilita solo su dispositivi puramente touch (no mouse) */
   var isMobileOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
@@ -55,16 +51,7 @@
 
       if (isInteractive !== cursorHovering) {
         cursorHovering = isInteractive;
-        cursorEl.style.width = isInteractive ? '70px' : '56px';
-        cursorEl.style.height = isInteractive ? '70px' : '56px';
         cursorEl.classList.toggle('custom-cursor--hovering', isInteractive);
-      }
-
-      /* Rileva se il cursore e' su una sezione con sfondo scuro */
-      var isOnDark = !!(target.closest(DARK_SELECTOR));
-      if (isOnDark !== cursorOnDark) {
-        cursorOnDark = isOnDark;
-        cursorEl.classList.toggle('custom-cursor--inverted', isOnDark);
       }
     });
 

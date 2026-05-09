@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Font Variants — R.Dolfini Arch.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --warm: #B85C38;
+      --bg: #FAFAF8;
+      --dark: #1A1A1A;
+      --mid: #555550;
+      --light: #F2F2F0;
+      --border: #E0DDD9;
+    }
+
+    body { background: var(--bg); color: var(--dark); }
+
+    /* ---- Label barra variante ---- */
+    .variant-bar {
+      background: var(--dark);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 12px 40px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .variant-bar .badge {
+      background: var(--warm);
+      border-radius: 2px;
+      padding: 3px 10px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .variant-bar .rec {
+      margin-left: auto;
+      color: var(--warm);
+      font-weight: 600;
+    }
+
+    /* ---- Mock sections ---- */
+    .mock { padding: 64px 40px; border-bottom: 1px solid var(--border); }
+    .mock + .mock { border-top: none; }
+
+    .mock__hero {
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                  url('immagini/hero-bg-still.jpg') center/cover no-repeat;
+      background-color: #2A2420;
+      padding: 80px 40px 60px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .mock__nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(250,250,248,0.85);
+    }
+
+    .mock__section {
+      padding: 56px 40px;
+      background: var(--bg);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .mock__cta {
+      background: var(--warm);
+      padding: 64px 40px;
+      text-align: center;
+    }
+
+    /* ---- Divider ---- */
+    .spacer { height: 64px; background: var(--bg); }
+
+    /* ===========================
+       VARIANTE A — DM Sans only
+       =========================== */
+    .a-nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dark);
+    }
+    .a-nav-logo span { font-weight: 400; color: var(--mid); }
+    .a-nav-links {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      display: flex; gap: 32px;
+    }
+
+    .a-tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .a-tagline em { font-style: italic; color: rgba(255,255,255,0.8); font-weight: 400; }
+    .a-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    .a-section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: #999;
+    }
+    .a-section-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--dark);
+      margin-top: 8px;
+    }
+    .a-item {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.4rem; font-weight: 500;
+      color: var(--dark);
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .a-cta-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+    }
+    .a-cta-h2 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .a-btn {
+      display: inline-block; margin-top: 28px;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      color: #fff; padding: 13px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ===========================
+       VARIANTE B — Syne + DM Sans
+       =========================== */
+    .b-nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--dark);
+    }
+    .b-nav-logo span { font-weight: 400; color: var(--mid); }
+    .b-nav-links {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--dark);
+      display: flex; gap: 32px;
+    }
+
+    .b-tagline {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .b-tagline em {
+      font-style: normal;
+      color: rgba(255,255,255,0.75);
+      font-weight: 400;
+    }
+    .b-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      margin-top: 20px; line-height: 1.6;
+    }
+
+    .b-section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #999;
+    }
+    .b-section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--dark); margin-top: 8px;
+    }
+    .b-item {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.4rem; font-weight: 500;
+      color: var(--dark); padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .b-cta-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 12px;
+    }
+    .b-cta-h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700; color: #fff; letter-spacing: -0.01em;
+    }
+    .b-btn {
+      display: inline-block; margin-top: 28px;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      color: #fff; padding: 13px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ===========================
+       VARIANTE C — Space Grotesk + DM Sans
+       =========================== */
+    .c-nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--dark);
+    }
+    .c-nav-logo span { font-weight: 300; color: var(--mid); }
+    .c-nav-links {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--dark); display: flex; gap: 32px;
+    }
+
+    .c-tagline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #fff; line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .c-tagline em {
+      font-style: italic;
+      color: rgba(255,255,255,0.78);
+      font-weight: 300;
+    }
+    .c-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      margin-top: 20px; line-height: 1.6;
+    }
+
+    .c-section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #999;
+    }
+    .c-section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--dark); margin-top: 8px;
+    }
+    .c-item {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.4rem; font-weight: 500;
+      color: var(--dark); padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .c-cta-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 12px;
+    }
+    .c-cta-h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700; color: #fff; letter-spacing: -0.02em;
+    }
+    .c-btn {
+      display: inline-block; margin-top: 28px;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      color: #fff; padding: 13px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ===========================
+       VARIANTE A2 — DM Sans titoli + Space Mono chrome
+       =========================== */
+    .a2-nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--dark);
+    }
+    .a2-nav-logo span { font-weight: 400; color: var(--mid); }
+    .a2-nav-links {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--dark); display: flex; gap: 32px;
+    }
+
+    .a2-tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700; color: #fff;
+      line-height: 1.1; letter-spacing: -0.02em;
+    }
+    .a2-tagline em {
+      font-style: italic;
+      color: rgba(255,255,255,0.8); font-weight: 400;
+    }
+    .a2-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      margin-top: 20px; line-height: 1.6;
+    }
+
+    .a2-section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #999;
+    }
+    .a2-section-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--dark); margin-top: 8px;
+    }
+    .a2-item {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.4rem; font-weight: 500;
+      color: var(--dark); padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .a2-cta-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 12px;
+    }
+    .a2-cta-h2 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700; color: #fff; letter-spacing: -0.02em;
+    }
+    .a2-btn {
+      display: inline-block; margin-top: 28px;
+      border: 1.5px solid rgba(255,255,255,0.6);
+      color: #fff; padding: 13px 28px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===================== VARIANTE A ===================== -->
+<div class="variant-bar">
+  <span class="badge">A</span>
+  DM Sans only — gerarchia per peso (OMA / RPBW approach)
+</div>
+
+<div class="mock__nav">
+  <div class="a-nav-logo">R.DOLFINI <span>ARCH.</span></div>
+  <div class="a-nav-links"><span>Progetti</span><span>Servizi</span><span>Chi sono</span><span>Contatti</span></div>
+</div>
+
+<div class="mock__hero">
+  <div class="a-tagline">Architettura <em>e' tradizione</em><br>che interroga il futuro</div>
+  <div class="a-subtitle">Progettazione architettonica e consulenza BIM.<br>Dal concept al cantiere, con tecnologie di modellazione avanzata.</div>
+</div>
+
+<div class="mock__section">
+  <div>
+    <div class="a-section-label">Dal concept al cantiere</div>
+  </div>
+  <div>
+    <div class="a-item">Rilievo e Modellazione BIM</div>
+    <div class="a-item">Progettazione Architettonica</div>
+    <div class="a-item">Rendering 3D</div>
+    <div class="a-item">Esperienze VR</div>
+  </div>
+</div>
+
+<div class="mock__cta">
+  <div class="a-cta-label">Collaboriamo</div>
+  <div class="a-cta-h2">Hai un progetto in mente?</div>
+  <div class="a-btn">Scrivimi</div>
+</div>
+
+<div class="spacer"></div>
+
+<!-- ===================== VARIANTE B ===================== -->
+<div class="variant-bar">
+  <span class="badge">B</span>
+  Syne display + DM Sans corpo
+  <span class="rec">★ Consigliata</span>
+</div>
+
+<div class="mock__nav">
+  <div class="b-nav-logo">R.DOLFINI <span>ARCH.</span></div>
+  <div class="b-nav-links"><span>Progetti</span><span>Servizi</span><span>Chi sono</span><span>Contatti</span></div>
+</div>
+
+<div class="mock__hero">
+  <div class="b-tagline">Architettura <em>e' tradizione</em><br>che interroga il futuro</div>
+  <div class="b-subtitle">Progettazione architettonica e consulenza BIM.<br>Dal concept al cantiere, con tecnologie di modellazione avanzata.</div>
+</div>
+
+<div class="mock__section">
+  <div>
+    <div class="b-section-label">Dal concept al cantiere</div>
+  </div>
+  <div>
+    <div class="b-item">Rilievo e Modellazione BIM</div>
+    <div class="b-item">Progettazione Architettonica</div>
+    <div class="b-item">Rendering 3D</div>
+    <div class="b-item">Esperienze VR</div>
+  </div>
+</div>
+
+<div class="mock__cta">
+  <div class="b-cta-label">Collaboriamo</div>
+  <div class="b-cta-h2">Hai un progetto in mente?</div>
+  <div class="b-btn">Scrivimi</div>
+</div>
+
+<div class="spacer"></div>
+
+<!-- ===================== VARIANTE C ===================== -->
+<div class="variant-bar">
+  <span class="badge">C</span>
+  Space Grotesk display + DM Sans corpo — approccio piu' tecnico
+</div>
+
+<div class="mock__nav">
+  <div class="c-nav-logo">R.DOLFINI <span>ARCH.</span></div>
+  <div class="c-nav-links"><span>Progetti</span><span>Servizi</span><span>Chi sono</span><span>Contatti</span></div>
+</div>
+
+<div class="mock__hero">
+  <div class="c-tagline">Architettura <em>e' tradizione</em><br>che interroga il futuro</div>
+  <div class="c-subtitle">Progettazione architettonica e consulenza BIM.<br>Dal concept al cantiere, con tecnologie di modellazione avanzata.</div>
+</div>
+
+<div class="mock__section">
+  <div>
+    <div class="c-section-label">Dal concept al cantiere</div>
+  </div>
+  <div>
+    <div class="c-item">Rilievo e Modellazione BIM</div>
+    <div class="c-item">Progettazione Architettonica</div>
+    <div class="c-item">Rendering 3D</div>
+    <div class="c-item">Esperienze VR</div>
+  </div>
+</div>
+
+<div class="mock__cta">
+  <div class="c-cta-label">Collaboriamo</div>
+  <div class="c-cta-h2">Hai un progetto in mente?</div>
+  <div class="c-btn">Scrivimi</div>
+</div>
+
+
+<div class="spacer"></div>
+
+<!-- ===================== VARIANTE A2 ===================== -->
+<div class="variant-bar">
+  <span class="badge">A2</span>
+  DM Sans titoli + Space Mono chrome (navbar, label, bottoni)
+  <span class="rec">★ Nuova</span>
+</div>
+
+<div class="mock__nav">
+  <div class="a2-nav-logo">R.DOLFINI <span>ARCH.</span></div>
+  <div class="a2-nav-links"><span>Progetti</span><span>Servizi</span><span>Chi sono</span><span>Contatti</span></div>
+</div>
+
+<div class="mock__hero">
+  <div class="a2-tagline">Architettura <em>e' tradizione</em><br>che interroga il futuro</div>
+  <div class="a2-subtitle">Progettazione architettonica e consulenza BIM.<br>Dal concept al cantiere, con tecnologie di modellazione avanzata.</div>
+</div>
+
+<div class="mock__section">
+  <div>
+    <div class="a2-section-label">Dal concept al cantiere</div>
+  </div>
+  <div>
+    <div class="a2-item">Rilievo e Modellazione BIM</div>
+    <div class="a2-item">Progettazione Architettonica</div>
+    <div class="a2-item">Rendering 3D</div>
+    <div class="a2-item">Esperienze VR</div>
+  </div>
+</div>
+
+<div class="mock__cta">
+  <div class="a2-cta-label">Collaboriamo</div>
+  <div class="a2-cta-h2">Hai un progetto in mente?</div>
+  <div class="a2-btn">Scrivimi</div>
+</div>
+
+</body>
+</html>
