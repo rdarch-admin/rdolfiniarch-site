@@ -1040,28 +1040,6 @@ h4 { font-size: var(--text-xl); }
 .page-header {
   padding-top: calc(var(--nav-height) + var(--space-3xl));
   padding-bottom: var(--space-2xl);
-  position: relative;
-  overflow: hidden;
-}
-
-.page-header .container {
-  position: relative;
-  z-index: 1;
-}
-
-.page-header__ghost {
-  position: absolute;
-  right: -0.02em;
-  bottom: -0.12em;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 22vw;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(184, 92, 56, 0.12);
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
 }
 
 .page-header h1 {
