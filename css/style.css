@@ -1171,7 +1171,7 @@ h4 { font-size: var(--text-xl); }
   display: block;
 }
 
-.project-card:hover .project-card__image > * {
+.project-card:hover .project-card__image > *:not(.project-status-badge) {
   transform: scale(1.04);
 }
 
