@@ -79,7 +79,7 @@
   border-radius: 50%;
   background: transparent;
   border: none;
-  box-shadow: 0 0 0 1px #ffffff;
+  box-shadow: 0 0 0 0.5px #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
