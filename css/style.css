@@ -78,7 +78,8 @@
   height: 56px;
   border-radius: 50%;
   background: transparent;
-  border: 1px solid #ffffff;
+  border: none;
+  box-shadow: 0 0 0 1px #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
