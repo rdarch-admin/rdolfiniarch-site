@@ -1130,6 +1130,34 @@ h4 { font-size: var(--text-xl); }
   aspect-ratio: 16/10;
   overflow: hidden;
   background: var(--color-border-light);
+  position: relative;
+}
+
+/* Badge stato progetto — sulla card */
+.project-status-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: rgba(250, 250, 248, 0.92);
+  padding: 0.3rem 0.6rem;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+/* Badge stato nella pagina progetto (header) */
+.page-header__accent .project-status-badge {
+  position: static;
+  background: transparent;
+  padding: 0;
+  color: var(--color-text-tertiary);
+  backdrop-filter: none;
 }
 
 .project-card__image > * {
