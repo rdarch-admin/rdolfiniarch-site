@@ -1,0 +1,215 @@
+---
+nav_active: home
+---
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architetto e BIM Coordinator a Firenze | R.Dolfini Arch.</title>
+  <meta name="description" content="Studio di architettura e consulenza BIM a Firenze. Progettazione architettonica, rilievo e modellazione BIM, rendering 3D, formazione e esperienze VR.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Architetto e BIM Coordinator a Firenze | R.Dolfini Arch.">
+  <meta property="og:description" content="Studio di architettura e consulenza BIM a Firenze. Progettazione architettonica, rilievo e modellazione BIM, rendering 3D.">
+  <meta property="og:url" content="https://www.rdolfiniarch.it/">
+  <link rel="stylesheet" href="css/style.css?v=24">
+  <script>if(sessionStorage.getItem('rdarch-intro')){document.documentElement.classList.add('intro-skip');}</script>
+</head>
+<body>
+
+  {% include header.html %}
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+
+    <video class="hero__video" autoplay muted loop playsinline>
+      <source src="immagini/hero-bg.mp4" type="video/mp4">
+    </video>
+    <div class="hero__video-overlay"></div>
+
+    <svg class="hero__bg-grid" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <pattern id="rdarch-gs" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#B85C38" stroke-width="0.4" opacity="0.5"/>
+        </pattern>
+        <pattern id="rdarch-gl" x="0" y="0" width="300" height="300" patternUnits="userSpaceOnUse">
+          <rect width="300" height="300" fill="url(#rdarch-gs)"/>
+          <path d="M 300 0 L 0 0 0 300" fill="none" stroke="#B85C38" stroke-width="0.9" opacity="0.7"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#rdarch-gl)" opacity="0.07"/>
+    </svg>
+
+    <div class="container hero__content">
+      <h1 class="hero__tagline">
+        <span class="hero__line">Architettura <em>e' tradizione</em></span>
+        <span class="hero__line">che interroga il futuro</span>
+      </h1>
+      <p class="hero__subtitle">
+        Progettazione architettonica e consulenza BIM.
+        Dal concept al cantiere, con tecnologie di modellazione avanzata.
+      </p>
+      <div class="hero__cta">
+        <a href="contatti.html" class="btn btn--primary">
+          Parliamone
+        </a>
+        <a href="progetti.html" class="btn btn--outline">
+          Vedi i progetti
+        </a>
+      </div>
+    </div>
+    <div class="hero__scroll-indicator">
+      <span>Scroll</span>
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M8 4v16m0 0l-4-4m4 4l4-4"/>
+      </svg>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ========== SERVIZI PREVIEW ========== -->
+  <section class="section" id="servizi">
+    <div class="container">
+      <div class="servizi-layout">
+        <div class="servizi-layout__header">
+          <h2 class="servizi-layout__title">Dal concept al cantiere</h2>
+        </div>
+        <div class="servizi-accordion">
+          <div class="servizi-item">
+            <button class="servizi-item__trigger" aria-expanded="false">
+              <span class="servizi-item__name">Rilievo e Modellazione BIM</span>
+              <span class="servizi-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="servizi-item__body">
+              <div class="servizi-item__body-inner">
+                <p>Rilievo architettonico e creazione di modelli BIM dettagliati per progetti nuovi ed esistenti.</p>
+                <a href="servizi.html" class="servizi-item__link">Scopri di piu' <span>&rarr;</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="servizi-item">
+            <button class="servizi-item__trigger" aria-expanded="false">
+              <span class="servizi-item__name">Progettazione Architettonica</span>
+              <span class="servizi-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="servizi-item__body">
+              <div class="servizi-item__body-inner">
+                <p>Dal concept preliminare al progetto esecutivo, per interventi di piccola e media dimensione.</p>
+                <a href="servizi.html" class="servizi-item__link">Scopri di piu' <span>&rarr;</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="servizi-item">
+            <button class="servizi-item__trigger" aria-expanded="false">
+              <span class="servizi-item__name">Rendering 3D</span>
+              <span class="servizi-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="servizi-item__body">
+              <div class="servizi-item__body-inner">
+                <p>Visualizzazioni concettuali e fotorealistiche per comunicare il progetto prima della realizzazione.</p>
+                <a href="servizi.html" class="servizi-item__link">Scopri di piu' <span>&rarr;</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="servizi-item">
+            <button class="servizi-item__trigger" aria-expanded="false">
+              <span class="servizi-item__name">Esperienze VR</span>
+              <span class="servizi-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="servizi-item__body">
+              <div class="servizi-item__body-inner">
+                <p>Tour immersivi per esplorare il progetto in scala 1:1 prima della realizzazione.</p>
+                <a href="servizi.html" class="servizi-item__link">Scopri di piu' <span>&rarr;</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="servizi-item">
+            <button class="servizi-item__trigger" aria-expanded="false">
+              <span class="servizi-item__name">Formazione BIM</span>
+              <span class="servizi-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="servizi-item__body">
+              <div class="servizi-item__body-inner">
+                <p>Corsi su misura per professionisti e studi di architettura che vogliono integrare il BIM nel proprio workflow.</p>
+                <a href="servizi.html" class="servizi-item__link">Scopri di piu' <span>&rarr;</span></a>
+              </div>
+            </div>
+          </div>
+          <div class="servizi-item">
+            <button class="servizi-item__trigger" aria-expanded="false">
+              <span class="servizi-item__name">Consulenza BIM</span>
+              <span class="servizi-item__icon" aria-hidden="true">+</span>
+            </button>
+            <div class="servizi-item__body">
+              <div class="servizi-item__body-inner">
+                <p>Supporto strategico per professionisti e piccoli studi nell'adozione di processi e strumenti BIM.</p>
+                <a href="servizi.html" class="servizi-item__link">Scopri di piu' <span>&rarr;</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT PREVIEW ========== -->
+  <section class="section about-section">
+    <div class="container">
+      <article class="about-card">
+        <figure class="about-card__media" aria-label="Ritratto al lavoro — placeholder">
+          <div class="about-card__placeholder">
+            <img src="immagini/Logo%20Personale%20Invert.png" alt="" class="about-card__placeholder-mark">
+            <span class="about-card__placeholder-corner about-card__placeholder-corner--tl" aria-hidden="true"></span>
+            <span class="about-card__placeholder-corner about-card__placeholder-corner--tr" aria-hidden="true"></span>
+            <span class="about-card__placeholder-corner about-card__placeholder-corner--bl" aria-hidden="true"></span>
+            <span class="about-card__placeholder-corner about-card__placeholder-corner--br" aria-hidden="true"></span>
+          </div>
+        </figure>
+
+        <div class="about-card__body">
+          <span class="label about-card__label">Chi sono</span>
+          <div class="about-card__row">
+            <div class="about-card__text">
+              <h2 class="about-card__name">Roberto Dolfini</h2>
+              <p class="about-card__lede">
+                Architetto e consulente BIM. Lavoro tra cantieri reali
+                e modelli digitali, integrando tradizione costruttiva
+                e tecnologie di ultima generazione.
+              </p>
+            </div>
+            <a href="chi-sono.html" class="about-card__link">
+              Conoscimi meglio <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta-section">
+    <div class="container">
+      <p class="cta-section__label">Collaboriamo</p>
+      <h2>Hai un progetto in mente?</h2>
+      <p>Raccontami la tua idea, troviamo insieme la soluzione giusta.</p>
+      <a href="contatti.html" class="btn btn--outline">
+        Scrivimi
+      </a>
+    </div>
+  </section>
+
+  {% include footer.html %}
+
+  <!-- ========== INTRO SCREEN ========== -->
+  <div class="site-intro" id="siteIntro" aria-hidden="true">
+    <div class="site-intro__inner">
+      <img src="immagini/Logo%20Personale.png" alt="" class="site-intro__logo">
+      <svg class="site-intro__arc" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="80" cy="80" r="70" stroke="#B85C38" stroke-width="1" transform="rotate(-90 80 80)" class="site-intro__circle"/>
+      </svg>
+    </div>
+  </div>
+
+  <script src="js/main.js?v=12"></script>
+</body>
+</html>
