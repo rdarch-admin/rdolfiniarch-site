@@ -17,6 +17,7 @@ SESSION_LOG.md
 
 # Jekyll build output
 _site/
+_preview/
 .jekyll-cache/
 .jekyll-metadata
 
