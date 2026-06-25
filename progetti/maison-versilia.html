@@ -134,6 +134,12 @@ nav_active: progetti
       transform: scale(1.03);
     }
 
+    /* Foto d'apertura a tutta larghezza (es. rendering), trattata come immagine e non come elaborato */
+    .gallery-item--photo {
+      aspect-ratio: 2 / 1;
+      background: var(--color-border-light);
+    }
+
     /* --- Sezione "Stato di fatto": foto verticali, nessun ritaglio --- */
     .project-gallery__grid--photos {
       grid-template-columns: repeat(3, 1fr);
@@ -339,10 +345,9 @@ nav_active: progetti
 
         <div class="project-gallery__grid">
 
-          <figure class="gallery-item gallery-doc gallery-item--wide">
+          <div class="gallery-item gallery-item--wide gallery-item--photo">
             <img src="../immagini/progetti/maison-versilia/progetto_rendering_salotto.png" alt="Rendering del soggiorno di progetto">
-            <figcaption>Rendering &middot; Soggiorno</figcaption>
-          </figure>
+          </div>
 
           <figure class="gallery-item gallery-doc">
             <img src="../immagini/progetti/maison-versilia/progetto_assonometria_nord.png" alt="Assonometria di progetto da nord">
