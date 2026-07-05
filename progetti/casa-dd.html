@@ -12,12 +12,14 @@ nav_active: progetti
   <meta property="og:title" content="Casa DD — Progettazione residenziale da remoto | R.Dolfini Arch.">
   <meta property="og:description" content="Riprogettazione da remoto, in corso d'opera, di un'abitazione acquistata in costruzione a Palagianello (TA).">
   <meta property="og:url" content="https://www.rdolfiniarch.it/progetti/casa-dd.html">
+  <meta property="og:image" content="https://www.rdolfiniarch.it/immagini/progetti/casa-dd/copertina_progetto.jpg">
   <link rel="stylesheet" href="../css/style.css?v=12">
 
   <style>
     /* === Layout pagina progetto === */
 
     .project-hero {
+      position: relative;
       width: 100%;
       aspect-ratio: 21 / 9;
       overflow: hidden;
@@ -28,22 +30,6 @@ nav_active: progetti
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    /* Hero in attesa delle immagini di progetto */
-    .project-hero--placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #E8E8E4 0%, #D0D0CC 100%);
-    }
-
-    .project-hero--placeholder span {
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-text-tertiary);
     }
 
     /* Strip metadati */
@@ -104,6 +90,86 @@ nav_active: progetti
       margin-bottom: var(--space-sm);
     }
 
+    /* Galleria */
+    .project-gallery {
+      margin-top: var(--space-3xl);
+    }
+
+    .project-gallery__header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .project-gallery__header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+
+    .project-gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      background: var(--color-border-light);
+    }
+
+    .gallery-item--wide {
+      grid-column: 1 / -1;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Foto d'apertura a tutta larghezza (es. rendering), trattata come immagine e non come elaborato */
+    .gallery-item--photo {
+      aspect-ratio: 2 / 1;
+      background: var(--color-border-light);
+    }
+
+    /* --- Sezione "Il progetto": render e tavole mostrati interi --- */
+    .gallery-doc {
+      display: flex;
+      flex-direction: column;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+    }
+
+    .gallery-doc img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      cursor: zoom-in;
+    }
+
+    .gallery-doc:hover img {
+      transform: none;
+    }
+
+    .gallery-doc figcaption {
+      padding: var(--space-sm) var(--space-md);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-tertiary);
+      border-top: 1px solid var(--color-border-light);
+    }
+
     /* Navigazione tra progetti */
     .project-nav {
       display: flex;
@@ -143,6 +209,14 @@ nav_active: progetti
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space-md);
       }
+
+      .project-gallery__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item--wide {
+        grid-column: auto;
+      }
     }
   </style>
 </head>
@@ -163,9 +237,10 @@ nav_active: progetti
     </div>
   </section>
 
-  <!-- ========== HERO IMAGE (placeholder) ========== -->
-  <div class="project-hero project-hero--placeholder">
-    <span>Immagini in arrivo</span>
+  <!-- ========== HERO IMAGE ========== -->
+  <div class="project-hero">
+    <img src="../immagini/progetti/casa-dd/copertina_progetto.jpg" alt="Casa DD — vista della zona giorno: soggiorno aperto sul terrazzo e cucina">
+    <span class="project-status-badge">In costruzione</span>
   </div>
 
   <!-- ========== CONTENUTO ========== -->
@@ -235,9 +310,58 @@ nav_active: progetti
 
         <h2>Stato dei lavori</h2>
         <p>
-          Progetto sviluppato interamente da remoto e attualmente in corso di realizzazione. Render, tavole e
-          documentazione fotografica seguiranno con l'avanzamento del cantiere.
+          Progetto sviluppato interamente da remoto e attualmente in corso di realizzazione. Render e tavole di
+          progetto sono raccolti qui sotto; la documentazione fotografica dell'opera seguira con l'avanzamento del
+          cantiere.
         </p>
+      </div>
+
+      <!-- Galleria: Il progetto -->
+      <div class="project-gallery">
+        <div class="project-gallery__header">
+          <span class="label">Il progetto</span>
+        </div>
+
+        <div class="project-gallery__grid">
+
+          <div class="gallery-item gallery-item--wide gallery-item--photo">
+            <img src="../immagini/progetti/casa-dd/progetto_rendering_salotto.jpg" alt="Rendering della zona giorno: soggiorno aperto sul terrazzo e cucina sullo sfondo">
+          </div>
+
+          <div class="gallery-item gallery-item--photo">
+            <img src="../immagini/progetti/casa-dd/progetto_rendering_cucina.jpg" alt="Rendering della zona giorno con parete attrezzata verde e zona pranzo">
+          </div>
+
+          <div class="gallery-item gallery-item--photo">
+            <img src="../immagini/progetti/casa-dd/progetto_rendering_camera.jpg" alt="Rendering della camera matrimoniale con cabina armadio vetrata e affaccio sul mare">
+          </div>
+
+          <figure class="gallery-item gallery-doc gallery-item--wide">
+            <img src="../immagini/progetti/casa-dd/progetto_pianta_arredata.png" alt="Pianta di progetto arredata">
+            <figcaption>Pianta &middot; Arredata</figcaption>
+          </figure>
+
+          <figure class="gallery-item gallery-doc">
+            <img src="../immagini/progetti/casa-dd/progetto_pianta_impianto_elettrico.png" alt="Pianta di progetto con impianto elettrico">
+            <figcaption>Pianta &middot; Impianto elettrico</figcaption>
+          </figure>
+
+          <figure class="gallery-item gallery-doc">
+            <img src="../immagini/progetti/casa-dd/progetto_pianta_impianto_illuminazione.png" alt="Pianta di progetto con impianto di illuminazione">
+            <figcaption>Pianta &middot; Impianto illuminazione</figcaption>
+          </figure>
+
+          <figure class="gallery-item gallery-doc gallery-item--wide">
+            <img src="../immagini/progetti/casa-dd/progetto_sezione_a.png" alt="Sezione A di progetto">
+            <figcaption>Sezione &middot; A</figcaption>
+          </figure>
+
+          <figure class="gallery-item gallery-doc gallery-item--wide">
+            <img src="../immagini/progetti/casa-dd/progetto_sezione_b.png" alt="Sezione B di progetto">
+            <figcaption>Sezione &middot; B</figcaption>
+          </figure>
+
+        </div>
       </div>
 
       <!-- Navigazione -->
