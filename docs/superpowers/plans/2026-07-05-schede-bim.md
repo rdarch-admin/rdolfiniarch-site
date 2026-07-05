@@ -174,7 +174,7 @@ Subito dopo `</head>`, aggiungi:
           </div>
           <div class="project-meta__item">
             <span class="project-meta__label">Software</span>
-            <span class="project-meta__value">Revit &middot; ReCap</span>
+            <span class="project-meta__value">Revit &middot; ReCap &middot; Rhinoceros</span>
           </div>
           <div class="project-meta__item">
             <span class="project-meta__label">Progetto</span>
@@ -386,7 +386,7 @@ Subito dopo `</head>`, aggiungi:
           </div>
           <div class="project-meta__item">
             <span class="project-meta__label">Software</span>
-            <span class="project-meta__value">Revit &middot; PyRevit</span>
+            <span class="project-meta__value">Revit &middot; Python</span>
           </div>
           <div class="project-meta__item">
             <span class="project-meta__label">Progetto</span>
