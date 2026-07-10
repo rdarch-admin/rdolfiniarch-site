@@ -230,9 +230,9 @@
     setTimeout(function () { lightboxImg.src = ''; }, 300);
   }
 
-  /* Click su qualsiasi img dentro .gallery-item */
+  /* Click su qualsiasi img dentro .gallery-item o .compare__side */
   document.addEventListener('click', function (e) {
-    var img = e.target.closest('.gallery-item img');
+    var img = e.target.closest('.gallery-item img, .compare__side img');
     if (img) {
       e.preventDefault();
       openLightbox(img.src, img.alt);
