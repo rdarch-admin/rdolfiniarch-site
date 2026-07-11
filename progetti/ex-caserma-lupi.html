@@ -12,7 +12,7 @@ nav_active: progetti
   <meta property="og:title" content="Ex Caserma Lupi — Modello BIM da preliminare a definitivo | R.Dolfini Arch.">
   <meta property="og:description" content="Modello BIM dell'Ex Caserma Lupi a Firenze portato dal preliminare al definitivo.">
   <meta property="og:url" content="https://www.rdolfiniarch.it/progetti/ex-caserma-lupi.html">
-  <link rel="stylesheet" href="../css/style.css?v=12">
+  <link rel="stylesheet" href="../css/style.css?v=13">
 
   <style>
     /* === Layout pagina progetto === */
@@ -217,24 +217,6 @@ nav_active: progetti
         grid-column: auto;
       }
     }
-
-    /* Placeholder scaffolding — immagini in arrivo */
-    .media-ph {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #E8E8E4 0%, #D0D0CC 100%);
-      color: var(--color-text-tertiary);
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-align: center;
-      padding: var(--space-md);
-    }
-    .project-hero .media-ph { width: 100%; height: 100%; }
-    .gallery-doc--placeholder .media-ph { aspect-ratio: 4 / 3; }
-    .gallery-item--wide.gallery-doc--placeholder .media-ph { aspect-ratio: 16 / 7; }
   </style>
 </head>
 <body>
@@ -249,14 +231,14 @@ nav_active: progetti
       </div>
       <h1>Ex Caserma Lupi</h1>
       <p class="page-header__subtitle">
-        Sviluppo di un modello BIM esistente dal preliminare al definitivo — Firenze
+        Sviluppo di modello BIM dal preliminare al definitivo — Firenze
       </p>
     </div>
   </section>
 
-  <!-- ========== HERO (placeholder) ========== -->
+  <!-- ========== HERO (progetto riservato) ========== -->
   <div class="project-hero">
-    <div class="media-ph">Immagine in arrivo</div>
+    <img src="../immagini/progetti/ex-caserma-lupi/copertina_progetto.jpg" alt="Ex Caserma Lupi — vista prospettica sfocata (progetto riservato NDA)">
     <span class="project-status-badge">BIM</span>
   </div>
 
@@ -315,39 +297,22 @@ nav_active: progetti
         </p>
       </div>
 
-      <!-- Galleria: Il progetto (placeholder) -->
+      <!-- Progetto riservato: nessuna galleria, nota di riservatezza -->
       <div class="project-gallery">
         <div class="project-gallery__header">
-          <span class="label">Il progetto</span>
+          <span class="label">Materiale di progetto</span>
         </div>
 
-        <div class="project-gallery__grid">
-
-          <figure class="gallery-item gallery-doc gallery-doc--placeholder">
-            <div class="media-ph">In arrivo</div>
-            <figcaption>Modello &middot; LOD preliminare</figcaption>
-          </figure>
-
-          <figure class="gallery-item gallery-doc gallery-doc--placeholder">
-            <div class="media-ph">In arrivo</div>
-            <figcaption>Modello &middot; LOD definitivo</figcaption>
-          </figure>
-
-          <figure class="gallery-item gallery-doc gallery-doc--placeholder gallery-item--wide">
-            <div class="media-ph">In arrivo</div>
-            <figcaption>Vista 3D &middot; I due edifici e l'interrato di collegamento</figcaption>
-          </figure>
-
-          <figure class="gallery-item gallery-doc gallery-doc--placeholder">
-            <div class="media-ph">In arrivo</div>
-            <figcaption>Pianta &middot; Piano tipo</figcaption>
-          </figure>
-
-          <figure class="gallery-item gallery-doc gallery-doc--placeholder">
-            <div class="media-ph">In arrivo</div>
-            <figcaption>Sezione &middot; Edificio A</figcaption>
-          </figure>
-
+        <div class="nda-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="10.5" width="16" height="10" rx="1.5"></rect>
+            <path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"></path>
+          </svg>
+          <p>
+            Le immagini e gli elaborati di questo progetto non sono divulgabili per accordo di
+            riservatezza (NDA) con il committente. Il contenuto tecnico del lavoro e' descritto nel
+            testo qui sopra.
+          </p>
         </div>
       </div>
 

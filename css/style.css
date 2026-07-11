@@ -1186,6 +1186,36 @@ h4 { font-size: var(--text-xl); }
   font-size: var(--text-sm);
 }
 
+/* === Progetto riservato (NDA) === */
+/* Card e hero usano il render prospettico sfocato con sigillo "NDA" gia'
+   compositato nel JPG (immagine piatta, blur non reversibile). Nessun
+   overlay CSS: bastano <img> dentro .project-card__image / .project-hero. */
+
+/* Nota di riservatezza: rimpiazza la galleria nella pagina di dettaglio */
+.nda-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--color-border-light);
+  border-left: 3px solid #B85C38;
+}
+
+.nda-note svg {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #B85C38;
+  margin-top: 3px;
+}
+
+.nda-note p {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
 .project-card__info {
   padding: var(--space-md) 0;
 }
