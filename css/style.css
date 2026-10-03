@@ -1467,10 +1467,6 @@ h4 { font-size: var(--text-xl); }
     gap: var(--space-lg);
   }
 
-  .about-preview__image {
-    aspect-ratio: 16/9;
-  }
-
   .cta-section h2 {
     font-size: var(--text-2xl);
     font-family: var(--font-sans);
