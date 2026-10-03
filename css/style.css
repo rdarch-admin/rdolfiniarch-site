@@ -805,50 +805,14 @@ h4 { font-size: var(--text-xl); }
   margin: 0 0 var(--space-lg);
 }
 
-.about-card__placeholder {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  background:
-    radial-gradient(ellipse at 30% 30%, #EFEAE2 0%, transparent 60%),
-    linear-gradient(135deg, #DCD6CC 0%, #C8C1B4 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.about-card__placeholder::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='aboutnoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23aboutnoise)' opacity='0.5'/%3E%3C/svg%3E");
-  background-size: 220px 220px;
-  mix-blend-mode: multiply;
-  opacity: 0.18;
-  pointer-events: none;
-}
-
-.about-card__placeholder-mark {
-  width: 96px;
+.about-card__img {
+  display: block;
+  width: 100%;
   height: auto;
-  opacity: 0.32;
-  filter: invert(1);
-  position: relative;
-  z-index: 1;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: center 62%; /* inquadra testa, braccia e laptop */
 }
-
-.about-card__placeholder-corner {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  border-color: rgba(26, 26, 26, 0.35);
-  border-style: solid;
-  border-width: 0;
-}
-.about-card__placeholder-corner--tl { top: 14px; left: 14px;  border-top-width: 1px; border-left-width: 1px; }
-.about-card__placeholder-corner--tr { top: 14px; right: 14px; border-top-width: 1px; border-right-width: 1px; }
-.about-card__placeholder-corner--bl { bottom: 14px; left: 14px;  border-bottom-width: 1px; border-left-width: 1px; }
-.about-card__placeholder-corner--br { bottom: 14px; right: 14px; border-bottom-width: 1px; border-right-width: 1px; }
 
 .about-card__label {
   display: block;
