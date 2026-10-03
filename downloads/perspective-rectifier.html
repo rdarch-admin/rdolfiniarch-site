@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raddrizzatore Prospettico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-0: #0a0a0a;
+            --bg-1: #131313;
+            --bg-2: #1a1a1a;
+            --bg-3: #242424;
+            --hairline: rgba(255,255,255,0.07);
+            --hairline-strong: rgba(255,255,255,0.14);
+            --text-1: #fafafa;
+            --text-2: #a3a3a3;
+            --text-3: #525252;
+            --col-v: #3b82f6;
+            --col-h: #f97316;
+            --col-sel: #facc15;
+            --col-ok: #22c55e;
+            --col-danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; height: 100%; }
+        body {
+            background: var(--bg-0);
+            color: var(--text-1);
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-feature-settings: 'ss01', 'cv11';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .mono {
+            font-family: 'Geist Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+            font-feature-settings: 'tnum';
+            font-variant-numeric: tabular-nums;
+        }
+
+        canvas { touch-action: none; display: block; }
+
+        .canvas-container {
+            background-color: #0c0c0c;
+            background-image:
+                linear-gradient(45deg, #161616 25%, transparent 25%),
+                linear-gradient(-45deg, #161616 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #161616 75%),
+                linear-gradient(-45deg, transparent 75%, #161616 75%);
+            background-size: 24px 24px;
+            background-position: 0 0, 0 12px, 12px -12px, -12px 0px;
+        }
+
+        input[type="checkbox"].chk {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--hairline-strong);
+            border-radius: 3px;
+            background: transparent;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: all 0.15s;
+            margin: 0;
+        }
+        input[type="checkbox"].chk:hover { border-color: var(--text-2); }
+        input[type="checkbox"].chk:checked {
+            background: var(--text-1);
+            border-color: var(--text-1);
+        }
+        input[type="checkbox"].chk:checked::after {
+            content: '';
+            position: absolute;
+            left: 3px; top: 0px;
+            width: 5px; height: 9px;
+            border: solid var(--bg-0);
+            border-width: 0 1.5px 1.5px 0;
+            transform: rotate(45deg);
+        }
+
+        input[type="range"].rng {
+            appearance: none;
+            -webkit-appearance: none;
+            background: transparent;
+            cursor: pointer;
+            height: 20px;
+            padding: 0;
+        }
+        input[type="range"].rng::-webkit-slider-runnable-track {
+            background: var(--hairline-strong);
+            height: 1px;
+            border-radius: 0;
+        }
+        input[type="range"].rng::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 11px; height: 11px;
+            background: var(--text-1);
+            border-radius: 50%;
+            margin-top: -5px;
+            cursor: grab;
+            transition: transform 0.1s;
+        }
+        input[type="range"].rng::-webkit-slider-thumb:active {
+            cursor: grabbing;
+            transform: scale(1.2);
+        }
+        input[type="range"].rng::-moz-range-track { background: var(--hairline-strong); height: 1px; }
+        input[type="range"].rng::-moz-range-thumb {
+            width: 11px; height: 11px; border: none;
+            background: var(--text-1); border-radius: 50%; cursor: grab;
+        }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 11px; font-size: 12.5px; font-weight: 500;
+            border-radius: 5px; border: 1px solid transparent;
+            background: transparent; color: var(--text-2);
+            cursor: pointer; transition: all 0.12s;
+            font-family: inherit; white-space: nowrap; line-height: 1;
+            text-decoration: none;
+        }
+        .btn:hover:not(:disabled) { background: var(--bg-2); color: var(--text-1); }
+        .btn-outline {
+            border-color: var(--hairline-strong);
+            color: var(--text-1);
+        }
+        .btn-outline:hover:not(:disabled) { background: var(--bg-2); border-color: var(--text-2); }
+        .btn-danger {
+            background: rgba(239,68,68,0.1);
+            color: #fca5a5;
+            border-color: rgba(239,68,68,0.3);
+        }
+        .btn-danger:hover:not(:disabled) {
+            background: rgba(239,68,68,0.18);
+            color: #fecaca;
+            border-color: rgba(239,68,68,0.5);
+        }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: var(--text-1); color: var(--bg-0);
+            font-weight: 600;
+            padding: 7px 16px;
+            border-radius: 5px;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            line-height: 1;
+            letter-spacing: 0.01em;
+            font-family: inherit;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .btn-primary:hover:not(:disabled) { background: #fff; }
+        .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .seg {
+            display: inline-flex; padding: 2px;
+            background: var(--bg-2);
+            border: 1px solid var(--hairline);
+            border-radius: 6px;
+        }
+        .seg-btn {
+            padding: 5px 12px; font-size: 12.5px; font-weight: 500;
+            border-radius: 4px; border: none; background: transparent;
+            color: var(--text-2); cursor: pointer; transition: all 0.12s;
+            font-family: inherit; line-height: 1;
+        }
+        .seg-btn:hover { color: var(--text-1); }
+        .seg-btn-active {
+            background: var(--bg-3); color: var(--text-1);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 0 0 0.5px var(--hairline-strong);
+        }
+
+        .chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 5px 10px; font-size: 12.5px; font-weight: 500;
+            border-radius: 5px;
+            border: 1px solid var(--hairline);
+            background: transparent;
+            color: var(--text-2);
+            cursor: pointer;
+            transition: all 0.12s;
+            font-family: inherit; line-height: 1;
+        }
+        .chip:hover { border-color: var(--hairline-strong); color: var(--text-1); }
+        .chip-letter { font-weight: 600; }
+        .chip-count { color: var(--text-3); font-size: 11px; }
+        .chip-v-active {
+            background: rgba(59,130,246,0.1);
+            border-color: rgba(59,130,246,0.45);
+            color: #93c5fd;
+        }
+        .chip-v-active .chip-count { color: #60a5fa; }
+        .chip-h-active {
+            background: rgba(249,115,22,0.1);
+            border-color: rgba(249,115,22,0.45);
+            color: #fdba74;
+        }
+        .chip-h-active .chip-count { color: #fb923c; }
+
+        .header {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 52px; padding: 0 18px;
+            background: var(--bg-1);
+            border-bottom: 1px solid var(--hairline);
+            flex-shrink: 0;
+        }
+
+        .div-v { width: 1px; height: 18px; background: var(--hairline); margin: 0 6px; flex-shrink: 0; }
+
+        .brand {
+            display: inline-flex; align-items: center; gap: 9px;
+            color: var(--text-1);
+        }
+        .brand-mark {
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-1);
+        }
+        .brand-text {
+            font-size: 13px; font-weight: 600;
+            letter-spacing: -0.005em;
+        }
+        .brand-version {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10px; color: var(--text-3);
+            padding: 2px 5px;
+            border: 1px solid var(--hairline);
+            border-radius: 3px;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.02em;
+        }
+
+        .label-inline {
+            display: inline-flex; align-items: center; gap: 7px;
+            font-size: 12.5px; color: var(--text-2);
+            cursor: pointer; user-select: none;
+            line-height: 1;
+            transition: color 0.12s;
+        }
+        .label-inline:hover { color: var(--text-1); }
+
+        .counter {
+            display: inline-flex; align-items: center; gap: 7px;
+            font-size: 12.5px; color: var(--text-2);
+            font-variant-numeric: tabular-nums;
+        }
+        .counter-label {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10.5px; color: var(--text-3);
+            letter-spacing: 0.05em; text-transform: uppercase;
+        }
+        .counter-val {
+            font-family: 'Geist Mono', monospace;
+            color: var(--text-1);
+        }
+        .counter-val-ok { color: #4ade80; }
+        .counter-val-pending { color: #fbbf24; }
+
+        .hud {
+            position: absolute; bottom: 14px; left: 14px;
+            pointer-events: none;
+            padding: 9px 12px;
+            background: rgba(10,10,10,0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--hairline);
+            border-radius: 6px;
+            font-family: 'Geist Mono', monospace;
+            font-size: 11px;
+            color: var(--text-2);
+            font-variant-numeric: tabular-nums;
+            line-height: 1.5;
+        }
+        .hud-row { display: flex; gap: 14px; align-items: baseline; }
+        .hud-label { color: var(--text-3); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .hud-val { color: var(--text-1); }
+        .hud-hint {
+            color: var(--text-3); font-size: 10.5px;
+            margin-top: 6px; padding-top: 6px;
+            border-top: 1px solid var(--hairline);
+            letter-spacing: 0.01em;
+        }
+        .hud-hint kbd {
+            font-family: inherit; font-size: 10px;
+            background: rgba(255,255,255,0.05);
+            padding: 1.5px 4px;
+            border: 1px solid var(--hairline);
+            border-radius: 3px; color: var(--text-2);
+            margin: 0 1px;
+        }
+
+        .upload-screen {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg-0);
+            background-image:
+                linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+            background-size: 48px 48px;
+            position: relative;
+        }
+        .upload-screen::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 60% 60% at center, transparent 40%, var(--bg-0) 100%);
+            pointer-events: none;
+        }
+        .upload-card {
+            position: relative; z-index: 1;
+            display: flex; flex-direction: column; align-items: center;
+            gap: 28px;
+            text-align: center;
+            max-width: 440px;
+            padding: 48px 32px;
+        }
+        .upload-title {
+            font-size: 34px; font-weight: 600;
+            letter-spacing: -0.025em;
+            color: var(--text-1);
+            line-height: 1.1;
+        }
+        .upload-subtitle {
+            font-family: 'Geist Mono', monospace;
+            font-size: 11px; color: var(--text-3);
+            letter-spacing: 0.08em; text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .upload-zone {
+            display: flex; flex-direction: column; align-items: center; gap: 9px;
+            padding: 26px 52px;
+            border: 1px solid var(--hairline-strong);
+            border-radius: 8px;
+            background: var(--bg-1);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+            color: var(--text-1);
+            min-width: 280px;
+        }
+        .upload-zone:hover {
+            background: var(--bg-2);
+            border-color: var(--text-2);
+            transform: translateY(-1px);
+        }
+        .upload-zone-label {
+            font-size: 14px; font-weight: 500;
+        }
+        .upload-zone-hint {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10.5px; color: var(--text-3);
+            letter-spacing: 0.08em;
+        }
+
+        .result-screen {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            background: var(--bg-0);
+            padding: 28px 32px;
+            gap: 20px;
+        }
+        .result-header {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--hairline);
+        }
+        .result-title {
+            font-size: 20px; font-weight: 600;
+            color: var(--text-1);
+            letter-spacing: -0.015em;
+            line-height: 1.2;
+        }
+        .result-subtitle {
+            font-family: 'Geist Mono', monospace;
+            font-size: 10.5px; color: var(--text-3);
+            letter-spacing: 0.1em; text-transform: uppercase;
+            margin-top: 6px;
+        }
+        .result-image-wrap {
+            flex: 1;
+            display: flex; align-items: center; justify-content: center;
+            min-height: 0;
+        }
+        .result-image {
+            max-width: 100%; max-height: 100%;
+            border: 1px solid var(--hairline);
+            box-shadow: 0 24px 64px -12px rgba(0,0,0,0.7);
+        }
+
+        .preview-panel {
+            width: 50%;
+            background: var(--bg-1);
+            border-left: 1px solid var(--hairline);
+            display: flex; flex-direction: column;
+            padding: 16px 18px;
+            min-height: 0;
+        }
+        .preview-header {
+            display: flex; align-items: center; justify-content: space-between;
+            font-family: 'Geist Mono', monospace;
+            font-size: 10.5px; color: var(--text-3);
+            letter-spacing: 0.1em; text-transform: uppercase;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--hairline);
+        }
+        .preview-live-dot {
+            display: inline-block; width: 5px; height: 5px;
+            background: #4ade80; border-radius: 50%;
+            margin-right: 6px;
+            box-shadow: 0 0 8px rgba(74,222,128,0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .preview-image-wrap {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            min-height: 0; overflow: hidden;
+        }
+        .preview-image {
+            max-width: 100%; max-height: 100%;
+            border: 1px solid var(--hairline);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner {
+            display: inline-block; width: 11px; height: 11px;
+            border: 1.5px solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .fade-up-d1 { animation-delay: 0.05s; }
+        .fade-up-d2 { animation-delay: 0.15s; }
+        .fade-up-d3 { animation-delay: 0.25s; }
+
+        button:focus-visible, input:focus-visible, label:focus-visible, a:focus-visible {
+            outline: 1px solid var(--text-1);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .icon-trash {
+            width: 11px; height: 11px; display: inline-block;
+            vertical-align: -1px;
+        }
+        .icon-download {
+            width: 12px; height: 12px; display: inline-block;
+            vertical-align: -1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useRef, useEffect, useCallback } = React;
+
+        const HIT_THRESHOLD_PX = 15;
+        const PREVIEW_MAX_DIM = 800;
+        const OUTPUT_MAX_DIM = 2500;
+        const MIN_ZOOM = 0.05;
+        const MAX_ZOOM = 50;
+        const ZOOM_FACTOR = 0.1;
+        const COLORS = {
+            vertical: '#3b82f6',
+            horizontal: '#f97316',
+            selected: '#facc15',
+            quad: '#22c55e',
+            point: '#ef4444',
+        };
+
+        const dist = (p1, p2) => Math.sqrt((p2.x - p1.x) ** 2 + (p2.y - p1.y) ** 2);
+
+        const solveLinearSystem = (A, b) => {
+            const n = b.length;
+            const aug = A.map((row, i) => [...row, b[i]]);
+            for (let col = 0; col < n; col++) {
+                let maxRow = col;
+                for (let row = col + 1; row < n; row++)
+                    if (Math.abs(aug[row][col]) > Math.abs(aug[maxRow][col])) maxRow = row;
+                [aug[col], aug[maxRow]] = [aug[maxRow], aug[col]];
+                if (Math.abs(aug[col][col]) < 1e-12) return null;
+                for (let row = col + 1; row < n; row++) {
+                    const f = aug[row][col] / aug[col][col];
+                    for (let j = col; j <= n; j++) aug[row][j] -= f * aug[col][j];
+                }
+            }
+            const x = new Array(n).fill(0);
+            for (let i = n - 1; i >= 0; i--) {
+                x[i] = aug[i][n];
+                for (let j = i + 1; j < n; j++) x[i] -= aug[i][j] * x[j];
+                x[i] /= aug[i][i];
+            }
+            return x;
+        };
+
+        const computeHomography4Points = (src, dst) => {
+            const A = [], b = [];
+            for (let i = 0; i < 4; i++) {
+                const sx = src[i].x, sy = src[i].y, dx = dst[i].x, dy = dst[i].y;
+                A.push([sx, sy, 1, 0, 0, 0, -dx * sx, -dx * sy]); b.push(dx);
+                A.push([0, 0, 0, sx, sy, 1, -dy * sx, -dy * sy]); b.push(dy);
+            }
+            const sol = solveLinearSystem(A, b);
+            return sol ? [...sol, 1] : null;
+        };
+
+        const BrandMark = ({ size = 14 }) => (
+            <svg width={size} height={size} viewBox="0 0 14 14" stroke="currentColor" fill="none" strokeWidth="1" strokeLinejoin="round">
+                <path d="M 1.5 2.5 L 12 1.5 L 12.5 11.5 L 2 12.5 Z" />
+            </svg>
+        );
+
+        const TrashIcon = () => (
+            <svg className="icon-trash" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M 2 3.5 L 12 3.5 M 5.5 3.5 L 5.5 2 L 8.5 2 L 8.5 3.5 M 3 3.5 L 3.75 12 L 10.25 12 L 11 3.5" />
+            </svg>
+        );
+
+        const DownloadIcon = () => (
+            <svg className="icon-download" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M 7 2 L 7 9 M 3.5 6 L 7 9.5 L 10.5 6 M 2.5 12 L 11.5 12" />
+            </svg>
+        );
+
+        function PerspectiveRectifier() {
+            const [image, setImage] = useState(null);
+            const [rectifiedImage, setRectifiedImage] = useState(null);
+            const [showResult, setShowResult] = useState(false);
+            const [workflowMode, setWorkflowMode] = useState('quadrilateral');
+            const [isProcessing, setIsProcessing] = useState(false);
+
+            const [points, setPoints] = useState([]);
+            const [verticalLines, setVerticalLines] = useState([]);
+            const [horizontalLines, setHorizontalLines] = useState([]);
+
+            const [view, setView] = useState({ x: 0, y: 0, zoom: 1 });
+            const [mouseImagePos, setMouseImagePos] = useState({ x: 0, y: 0 });
+
+            const [lineStart, setLineStart] = useState(null);
+            const [activeLineType, setActiveLineType] = useState(null);
+            const [dragPointIndex, setDragPointIndex] = useState(null);
+            const [isPanning, setIsPanning] = useState(false);
+            const [lastPanPoint, setLastPanPoint] = useState({ x: 0, y: 0 });
+            const [selectedLine, setSelectedLine] = useState(null);
+            const [draggingLinePoint, setDraggingLinePoint] = useState(null);
+
+            const [showPreview, setShowPreview] = useState(false);
+            const [previewImage, setPreviewImage] = useState(null);
+            const [showOverlay, setShowOverlay] = useState(false);
+            const [overlayOpacity, setOverlayOpacity] = useState(0.5);
+            const [autoSize, setAutoSize] = useState(true);
+            const [keepWholeImage, setKeepWholeImage] = useState(false);
+
+            const canvasRef = useRef(null);
+            const containerRef = useRef(null);
+            const imageRef = useRef(null);
+            const viewRef = useRef(view);
+            viewRef.current = view;
+
+            const screenToImage = useCallback((sx, sy) => {
+                if (!canvasRef.current) return { x: 0, y: 0 };
+                const rect = canvasRef.current.getBoundingClientRect();
+                const v = viewRef.current;
+                return {
+                    x: (sx - rect.left - v.x) / v.zoom,
+                    y: (sy - rect.top - v.y) / v.zoom,
+                };
+            }, []);
+
+            const resetData = useCallback(() => {
+                setPoints([]); setVerticalLines([]); setHorizontalLines([]);
+                setLineStart(null); setRectifiedImage(null); setShowResult(false);
+                setSelectedLine(null); setPreviewImage(null); setActiveLineType(null);
+            }, []);
+
+            const handleImageUpload = (e) => {
+                const file = e.target.files[0];
+                e.target.value = '';
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        imageRef.current = img;
+                        setImage(evt.target.result);
+                        if (containerRef.current) {
+                            const cw = containerRef.current.clientWidth;
+                            const ch = containerRef.current.clientHeight;
+                            const scale = Math.min((cw - 40) / img.width, (ch - 40) / img.height);
+                            setView({
+                                x: (cw - img.width * scale) / 2,
+                                y: (ch - img.height * scale) / 2,
+                                zoom: scale,
+                            });
+                        }
+                        resetData();
+                    };
+                    img.src = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            };
+
+            const deleteSelectedLine = useCallback(() => {
+                setSelectedLine(sel => {
+                    if (!sel) return null;
+                    if (sel.type === 'vertical') setVerticalLines(ls => ls.filter((_, i) => i !== sel.index));
+                    else setHorizontalLines(ls => ls.filter((_, i) => i !== sel.index));
+                    return null;
+                });
+            }, []);
+
+            useEffect(() => {
+                const onKeyDown = (e) => {
+                    if ((e.key === 'Delete' || e.key === 'Backspace') && selectedLine) {
+                        e.preventDefault();
+                        deleteSelectedLine();
+                    }
+                    if (e.key === 'Escape') {
+                        setSelectedLine(null);
+                        setLineStart(null);
+                    }
+                };
+                window.addEventListener('keydown', onKeyDown);
+                return () => window.removeEventListener('keydown', onKeyDown);
+            }, [selectedLine, deleteSelectedLine]);
+
+            useEffect(() => {
+                const canvas = canvasRef.current;
+                if (!canvas) return;
+                const onWheel = (e) => {
+                    e.preventDefault();
+                    const factor = 1 + ZOOM_FACTOR * (e.deltaY < 0 ? 1 : -1);
+                    const rect = canvas.getBoundingClientRect();
+                    const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+                    const v = viewRef.current;
+                    const newZoom = Math.max(MIN_ZOOM, Math.min(v.zoom * factor, MAX_ZOOM));
+                    setView({
+                        x: mx - (mx - v.x) * (newZoom / v.zoom),
+                        y: my - (my - v.y) * (newZoom / v.zoom),
+                        zoom: newZoom,
+                    });
+                };
+                canvas.addEventListener('wheel', onWheel, { passive: false });
+                return () => canvas.removeEventListener('wheel', onWheel);
+            }, [image]);
+
+            useEffect(() => {
+                const canvas = canvasRef.current;
+                const container = containerRef.current;
+                const img = imageRef.current;
+                if (!canvas || !container || !img || !image) return;
+
+                canvas.width = container.clientWidth;
+                canvas.height = container.clientHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.save();
+                ctx.translate(view.x, view.y);
+                ctx.scale(view.zoom, view.zoom);
+                ctx.drawImage(img, 0, 0);
+
+                if (showOverlay) {
+                    ctx.fillStyle = `rgba(0,0,0,${overlayOpacity})`;
+                    ctx.fillRect(0, 0, img.width, img.height);
+                }
+
+                ctx.lineWidth = 2 / view.zoom;
+
+                const drawPoint = (p, color, size = 6) => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, size / view.zoom, 0, Math.PI * 2);
+                    ctx.fillStyle = color;
+                    ctx.fill();
+                    ctx.strokeStyle = 'white';
+                    ctx.stroke();
+                };
+
+                const drawLine = (p1, p2, color) => {
+                    ctx.beginPath();
+                    ctx.strokeStyle = color;
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                };
+
+                const drawExtendedLine = (p1, p2, color, isSelected = false) => {
+                    const dx = p2.x - p1.x, dy = p2.y - p1.y;
+                    if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) return;
+                    const mult = Math.max(img.width, img.height) * 2;
+                    const len = Math.sqrt(dx * dx + dy * dy);
+                    const ndx = dx / len, ndy = dy / len;
+
+                    ctx.beginPath();
+                    ctx.strokeStyle = color;
+                    ctx.globalAlpha = 0.4;
+                    ctx.setLineDash([5 / view.zoom, 5 / view.zoom]);
+                    ctx.moveTo(p1.x - ndx * mult, p1.y - ndy * mult);
+                    ctx.lineTo(p2.x + ndx * mult, p2.y + ndy * mult);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.globalAlpha = 1;
+
+                    if (isSelected) {
+                        ctx.lineWidth = 4 / view.zoom;
+                        ctx.strokeStyle = COLORS.selected;
+                    }
+                    drawLine(p1, p2, isSelected ? COLORS.selected : color);
+                    ctx.lineWidth = 2 / view.zoom;
+                    drawPoint(p1, isSelected ? COLORS.selected : color, isSelected ? 8 : 6);
+                    drawPoint(p2, isSelected ? COLORS.selected : color, isSelected ? 8 : 6);
+                };
+
+                if (workflowMode === 'quadrilateral') {
+                    if (points.length > 0) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = COLORS.quad;
+                        ctx.moveTo(points[0].x, points[0].y);
+                        for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+                        if (points.length === 4) ctx.lineTo(points[0].x, points[0].y);
+                        ctx.stroke();
+                        points.forEach((p, i) => {
+                            drawPoint(p, i === dragPointIndex ? COLORS.selected : COLORS.point, 8);
+                            ctx.fillStyle = 'white';
+                            ctx.font = `${12 / view.zoom}px sans-serif`;
+                            ctx.fillText(i + 1, p.x + 10 / view.zoom, p.y - 10 / view.zoom);
+                        });
+                    }
+                } else {
+                    verticalLines.forEach((l, i) => {
+                        const isSel = selectedLine?.type === 'vertical' && selectedLine?.index === i;
+                        drawExtendedLine(l.p1, l.p2, COLORS.vertical, isSel);
+                    });
+                    horizontalLines.forEach((l, i) => {
+                        const isSel = selectedLine?.type === 'horizontal' && selectedLine?.index === i;
+                        drawExtendedLine(l.p1, l.p2, COLORS.horizontal, isSel);
+                    });
+                    if (lineStart && activeLineType) {
+                        drawExtendedLine(lineStart, mouseImagePos, activeLineType === 'vertical' ? COLORS.vertical : COLORS.horizontal);
+                    }
+                }
+                ctx.restore();
+            }, [image, view, points, verticalLines, horizontalLines, lineStart, mouseImagePos, dragPointIndex, workflowMode, activeLineType, selectedLine, showOverlay, overlayOpacity]);
+
+            const findNearestLinePoint = (imgPos, threshold) => {
+                const check = (lines, type) => {
+                    for (let i = 0; i < lines.length; i++) {
+                        if (dist(lines[i].p1, imgPos) < threshold) return { type, index: i, point: 'p1' };
+                        if (dist(lines[i].p2, imgPos) < threshold) return { type, index: i, point: 'p2' };
+                    }
+                    return null;
+                };
+                return check(verticalLines, 'vertical') || check(horizontalLines, 'horizontal');
+            };
+
+            const findNearestLine = (imgPos, threshold) => {
+                const pToLine = (p, l) => {
+                    const A = p.x - l.p1.x, B = p.y - l.p1.y;
+                    const C = l.p2.x - l.p1.x, D = l.p2.y - l.p1.y;
+                    const dot = A * C + B * D, lenSq = C * C + D * D;
+                    const t = lenSq !== 0 ? Math.max(0, Math.min(1, dot / lenSq)) : 0;
+                    return dist(p, { x: l.p1.x + t * C, y: l.p1.y + t * D });
+                };
+                let closest = null, minD = threshold;
+                verticalLines.forEach((l, i) => {
+                    const d = pToLine(imgPos, l);
+                    if (d < minD) { minD = d; closest = { type: 'vertical', index: i }; }
+                });
+                horizontalLines.forEach((l, i) => {
+                    const d = pToLine(imgPos, l);
+                    if (d < minD) { minD = d; closest = { type: 'horizontal', index: i }; }
+                });
+                return closest;
+            };
+
+            const handleMouseDown = (e) => {
+                if (!image) return;
+                if (e.button === 1 || e.ctrlKey) {
+                    e.preventDefault();
+                    setIsPanning(true);
+                    setLastPanPoint({ x: e.clientX, y: e.clientY });
+                    return;
+                }
+                if (e.button !== 0) return;
+                const imgPos = screenToImage(e.clientX, e.clientY);
+                const threshold = HIT_THRESHOLD_PX / view.zoom;
+
+                if (workflowMode === 'quadrilateral') {
+                    const hit = points.findIndex(p => dist(p, imgPos) < threshold);
+                    if (hit >= 0) setDragPointIndex(hit);
+                    else if (points.length < 4) setPoints([...points, imgPos]);
+                } else {
+                    const lp = findNearestLinePoint(imgPos, threshold);
+                    if (lp) {
+                        setDraggingLinePoint(lp);
+                        setSelectedLine({ type: lp.type, index: lp.index });
+                        return;
+                    }
+                    const nl = findNearestLine(imgPos, threshold);
+                    if (nl && !activeLineType) {
+                        setSelectedLine(nl);
+                        return;
+                    }
+                    if (activeLineType) {
+                        if (!lineStart) setLineStart(imgPos);
+                        else {
+                            const newLine = { p1: lineStart, p2: imgPos };
+                            if (activeLineType === 'vertical') setVerticalLines([...verticalLines, newLine]);
+                            else setHorizontalLines([...horizontalLines, newLine]);
+                            setLineStart(null);
+                        }
+                    } else {
+                        setSelectedLine(null);
+                    }
+                }
+            };
+
+            const handleMouseMove = (e) => {
+                const imgPos = screenToImage(e.clientX, e.clientY);
+                setMouseImagePos(imgPos);
+                if (isPanning) {
+                    setView(v => ({ ...v, x: v.x + e.clientX - lastPanPoint.x, y: v.y + e.clientY - lastPanPoint.y }));
+                    setLastPanPoint({ x: e.clientX, y: e.clientY });
+                    return;
+                }
+                if (dragPointIndex !== null && workflowMode === 'quadrilateral') {
+                    const np = [...points];
+                    np[dragPointIndex] = imgPos;
+                    setPoints(np);
+                }
+                if (draggingLinePoint) {
+                    const { type, index, point } = draggingLinePoint;
+                    const setter = type === 'vertical' ? setVerticalLines : setHorizontalLines;
+                    setter(lines => {
+                        const out = [...lines];
+                        out[index] = { ...out[index], [point]: imgPos };
+                        return out;
+                    });
+                }
+            };
+
+            const handleMouseUp = () => {
+                setIsPanning(false);
+                setDragPointIndex(null);
+                setDraggingLinePoint(null);
+            };
+
+            const computeRectification = useCallback((forPreview) => {
+                const img = imageRef.current;
+                if (!img) return null;
+                const maxDim = forPreview ? PREVIEW_MAX_DIM : OUTPUT_MAX_DIM;
+
+                const tx = (H, x, y) => {
+                    const w = H[6]*x + H[7]*y + H[8];
+                    return Math.abs(w) > 1e-10 ? { x:(H[0]*x+H[1]*y+H[2])/w, y:(H[3]*x+H[4]*y+H[5])/w } : null;
+                };
+
+                // Sutherland-Hodgman clip of a convex polygon against the half-plane
+                // sign*(H[6]x + H[7]y + H[8]) > eps. This is the "horizon line" of the
+                // rectified plane — points on the wrong side project past infinity and
+                // can't be rectified, so we cut them out before bounding the output.
+                const clipToSafe = (polygon, H, sign, eps = 0.001) => {
+                    const wOf = p => sign * (H[6]*p.x + H[7]*p.y + H[8]);
+                    const out = [];
+                    for (let i = 0; i < polygon.length; i++) {
+                        const curr = polygon[i];
+                        const next = polygon[(i + 1) % polygon.length];
+                        const wCurr = wOf(curr), wNext = wOf(next);
+                        const currIn = wCurr > eps, nextIn = wNext > eps;
+                        if (currIn) out.push(curr);
+                        if (currIn !== nextIn) {
+                            const t = (wCurr - eps) / (wCurr - wNext);
+                            out.push({ x: curr.x + t*(next.x-curr.x), y: curr.y + t*(next.y-curr.y) });
+                        }
+                    }
+                    return out;
+                };
+
+                // "Keep whole image" rectification driven by a source quad in the image
+                // that maps to a rectW x rectH rectangle in the rectified plane.
+                const buildKeepWhole = (srcQuad, rectW, rectH) => {
+                    const H_fwd = computeHomography4Points(srcQuad, [{x:0,y:0},{x:rectW,y:0},{x:rectW,y:rectH},{x:0,y:rectH}]);
+                    if (!H_fwd) return null;
+
+                    // Pick the safe side using the quad centroid (always inside the plane).
+                    const cx = (srcQuad[0].x + srcQuad[1].x + srcQuad[2].x + srcQuad[3].x) / 4;
+                    const cy = (srcQuad[0].y + srcQuad[1].y + srcQuad[2].y + srcQuad[3].y) / 4;
+                    const wCenter = H_fwd[6]*cx + H_fwd[7]*cy + H_fwd[8];
+                    const sign = wCenter >= 0 ? 1 : -1;
+
+                    // Clip the image rectangle to the safe half-plane, then transform.
+                    const imgRect = [{x:0,y:0},{x:img.width,y:0},{x:img.width,y:img.height},{x:0,y:img.height}];
+                    const clipped = clipToSafe(imgRect, H_fwd, sign);
+                    if (clipped.length < 3) return null;
+
+                    const tfC = clipped.map(c => tx(H_fwd, c.x, c.y));
+                    if (tfC.some(c => !c)) return null;
+                    const xs = tfC.map(c => c.x), ys = tfC.map(c => c.y);
+                    const minX = Math.min(...xs), maxX = Math.max(...xs);
+                    const minY = Math.min(...ys), maxY = Math.max(...ys);
+                    const rawW = maxX - minX, rawH = maxY - minY;
+                    if (!isFinite(rawW) || !isFinite(rawH) || rawW < 2 || rawH < 2) return null;
+
+                    const hardCap = OUTPUT_MAX_DIM * 2;
+                    const capScale = Math.min(1, hardCap / Math.max(rawW, rawH));
+                    const scale = autoSize ? Math.min(capScale, maxDim / Math.max(rawW, rawH)) : capScale;
+                    const fW = Math.max(1, Math.round(rawW * scale));
+                    const fH = Math.max(1, Math.round(rawH * scale));
+
+                    // H_inv maps final-output coords back to image coords. Use the quad
+                    // correspondences: srcQuad in image <-> quadInFinal in output.
+                    const quadInFinal = [
+                        { x: (0     - minX) * scale, y: (0     - minY) * scale },
+                        { x: (rectW - minX) * scale, y: (0     - minY) * scale },
+                        { x: (rectW - minX) * scale, y: (rectH - minY) * scale },
+                        { x: (0     - minX) * scale, y: (rectH - minY) * scale },
+                    ];
+                    const H_i = computeHomography4Points(quadInFinal, srcQuad);
+                    if (!H_i) return null;
+                    return { finalW: fW, finalH: fH, H_inv: H_i, H_fwd, sign };
+                };
+
+                let finalW, finalH, H_inv, H_safety = null, safetySign = 1;
+
+                if (workflowMode === 'quadrilateral') {
+                    if (points.length !== 4) return null;
+                    const topW = dist(points[0], points[1]), botW = dist(points[3], points[2]);
+                    const leftH = dist(points[0], points[3]), rightH = dist(points[1], points[2]);
+                    if (topW < 2 || botW < 2 || leftH < 2 || rightH < 2) return null;
+                    const avgW = (topW + botW) / 2, avgH = (leftH + rightH) / 2;
+
+                    if (keepWholeImage) {
+                        const r = buildKeepWhole(points, avgW, avgH);
+                        if (!r) return null;
+                        finalW = r.finalW; finalH = r.finalH; H_inv = r.H_inv;
+                        H_safety = r.H_fwd; safetySign = r.sign;
+                    } else {
+                        const scale = autoSize ? Math.min(1, maxDim / Math.max(avgW, avgH)) : 1;
+                        finalW = Math.max(1, Math.round(avgW * scale));
+                        finalH = Math.max(1, Math.round(avgH * scale));
+                        const dst = [{x:0,y:0},{x:finalW,y:0},{x:finalW,y:finalH},{x:0,y:finalH}];
+                        H_inv = computeHomography4Points(dst, points);
+                    }
+                } else {
+                    if (verticalLines.length < 2 || horizontalLines.length < 2) return null;
+
+                    const lineIntersection = (l1, l2) => {
+                        const x1=l1.p1.x,y1=l1.p1.y,x2=l1.p2.x,y2=l1.p2.y;
+                        const x3=l2.p1.x,y3=l2.p1.y,x4=l2.p2.x,y4=l2.p2.y;
+                        const denom = (x1-x2)*(y3-y4) - (y1-y2)*(x3-x4);
+                        if (Math.abs(denom) < 1e-10) return null;
+                        const t = ((x1-x3)*(y3-y4) - (y1-y3)*(x3-x4)) / denom;
+                        return { x: x1 + t*(x2-x1), y: y1 + t*(y2-y1) };
+                    };
+
+                    const mostDistant = (lines) => {
+                        if (lines.length === 2) return [lines[0], lines[1]];
+                        let maxD = 0, best = [lines[0], lines[1]];
+                        for (let i = 0; i < lines.length; i++)
+                            for (let j = i + 1; j < lines.length; j++) {
+                                const c1 = { x:(lines[i].p1.x+lines[i].p2.x)/2, y:(lines[i].p1.y+lines[i].p2.y)/2 };
+                                const c2 = { x:(lines[j].p1.x+lines[j].p2.x)/2, y:(lines[j].p1.y+lines[j].p2.y)/2 };
+                                const d = dist(c1, c2);
+                                if (d > maxD) { maxD = d; best = [lines[i], lines[j]]; }
+                            }
+                        return best;
+                    };
+
+                    const [vA, vB] = mostDistant(verticalLines);
+                    const [hA, hB] = mostDistant(horizontalLines);
+                    const [leftV, rightV] = (vA.p1.x+vA.p2.x)/2 < (vB.p1.x+vB.p2.x)/2 ? [vA,vB] : [vB,vA];
+                    const [topH, botH] = (hA.p1.y+hA.p2.y)/2 < (hB.p1.y+hB.p2.y)/2 ? [hA,hB] : [hB,hA];
+
+                    const tl = lineIntersection(leftV, topH);
+                    const tr = lineIntersection(rightV, topH);
+                    const br = lineIntersection(rightV, botH);
+                    const bl = lineIntersection(leftV, botH);
+                    if (!tl || !tr || !br || !bl) return null;
+
+                    const qW = (dist(tl,tr) + dist(bl,br)) / 2;
+                    const qH = (dist(tl,bl) + dist(tr,br)) / 2;
+                    if (qW < 2 || qH < 2) return null;
+
+                    const r = buildKeepWhole([tl,tr,br,bl], qW, qH);
+                    if (!r) return null;
+                    finalW = r.finalW; finalH = r.finalH; H_inv = r.H_inv;
+                    H_safety = r.H_fwd; safetySign = r.sign;
+                }
+
+                if (!H_inv) return null;
+
+                const cvs = document.createElement('canvas');
+                cvs.width = finalW; cvs.height = finalH;
+                const ctx = cvs.getContext('2d');
+                const dstData = ctx.createImageData(finalW, finalH);
+
+                const srcCvs = document.createElement('canvas');
+                srcCvs.width = img.width; srcCvs.height = img.height;
+                const srcCtx = srcCvs.getContext('2d');
+                srcCtx.drawImage(img, 0, 0);
+                const srcData = srcCtx.getImageData(0, 0, img.width, img.height);
+                const sD = srcData.data, dD = dstData.data;
+                const sw = img.width, sh = img.height;
+
+                // Optional safe-region gate for keep-whole modes: reject pixels that
+                // inverse-map to the wrong side of the horizon (otherwise the unsafe
+                // half of the original would ghost into the output mirrored/warped).
+                const hasSafety = H_safety !== null;
+                const sH6 = hasSafety ? H_safety[6] : 0;
+                const sH7 = hasSafety ? H_safety[7] : 0;
+                const sH8 = hasSafety ? H_safety[8] : 0;
+
+                for (let y = 0; y < finalH; y++) {
+                    for (let x = 0; x < finalW; x++) {
+                        const w = H_inv[6]*x + H_inv[7]*y + H_inv[8];
+                        if (Math.abs(w) < 1e-5) continue;
+                        const u = (H_inv[0]*x + H_inv[1]*y + H_inv[2]) / w;
+                        const v = (H_inv[3]*x + H_inv[4]*y + H_inv[5]) / w;
+                        if (u < 0 || v < 0 || u >= sw - 1 || v >= sh - 1) continue;
+                        if (hasSafety) {
+                            const ws = safetySign * (sH6*u + sH7*v + sH8);
+                            if (ws <= 0.001) continue;
+                        }
+                        const u0 = u | 0, v0 = v | 0;
+                        const fu = u - u0, fv = v - v0;
+                        const i00 = (v0*sw + u0) * 4;
+                        const i10 = i00 + 4;
+                        const i01 = i00 + sw*4;
+                        const i11 = i01 + 4;
+                        const w00 = (1-fu)*(1-fv), w10 = fu*(1-fv), w01 = (1-fu)*fv, w11 = fu*fv;
+                        const di = (y*finalW + x) * 4;
+                        dD[di]   = sD[i00]  *w00 + sD[i10]  *w10 + sD[i01]  *w01 + sD[i11]  *w11;
+                        dD[di+1] = sD[i00+1]*w00 + sD[i10+1]*w10 + sD[i01+1]*w01 + sD[i11+1]*w11;
+                        dD[di+2] = sD[i00+2]*w00 + sD[i10+2]*w10 + sD[i01+2]*w01 + sD[i11+2]*w11;
+                        dD[di+3] = 255;
+                    }
+                }
+                ctx.putImageData(dstData, 0, 0);
+                return cvs.toDataURL();
+            }, [workflowMode, points, verticalLines, horizontalLines, autoSize, keepWholeImage]);
+
+            useEffect(() => {
+                if (!showPreview || workflowMode !== 'lines' || verticalLines.length < 2 || horizontalLines.length < 2) {
+                    setPreviewImage(null);
+                    return;
+                }
+                const t = setTimeout(() => {
+                    try {
+                        const result = computeRectification(true);
+                        if (result) setPreviewImage(result);
+                    } catch (err) { console.error('Preview error:', err); }
+                }, 100);
+                return () => clearTimeout(t);
+            }, [showPreview, verticalLines, horizontalLines, workflowMode, autoSize, computeRectification]);
+
+            const applyRectification = async () => {
+                setIsProcessing(true);
+                await new Promise(r => requestAnimationFrame(r));
+                try {
+                    const result = computeRectification(false);
+                    if (result) {
+                        setRectifiedImage(result);
+                        setShowResult(true);
+                    }
+                } catch (err) {
+                    console.error('Rectification error:', err);
+                } finally {
+                    setIsProcessing(false);
+                }
+            };
+
+            if (!image) return (
+                <div className="upload-screen">
+                    <div className="upload-card">
+                        <div className="fade-up fade-up-d1" style={{color:'var(--text-1)'}}>
+                            <BrandMark size={26} />
+                        </div>
+                        <div className="fade-up fade-up-d2">
+                            <div className="upload-title">Raddrizzatore</div>
+                            <div className="upload-subtitle">Correzione prospettica  ·  V3</div>
+                        </div>
+                        <label className="upload-zone fade-up fade-up-d3">
+                            <span className="upload-zone-label">Seleziona immagine</span>
+                            <span className="upload-zone-hint">JPG · PNG · WEBP</span>
+                            <input type="file" accept="image/*" onChange={handleImageUpload} style={{display:'none'}} />
+                        </label>
+                    </div>
+                </div>
+            );
+
+            if (showResult && rectifiedImage) return (
+                <div className="result-screen">
+                    <div className="result-header">
+                        <div>
+                            <div className="result-title">Immagine raddrizzata</div>
+                            <div className="result-subtitle">Output · pronta per l'esportazione</div>
+                        </div>
+                        <div style={{display:'flex', alignItems:'center', gap:8}}>
+                            <button onClick={() => setShowResult(false)} className="btn btn-outline">Modifica</button>
+                            <button onClick={() => setImage(null)} className="btn btn-outline">Nuova</button>
+                            <a href={rectifiedImage} download="rectified.png" className="btn-primary">
+                                <DownloadIcon />
+                                Scarica
+                            </a>
+                        </div>
+                    </div>
+                    <div className="result-image-wrap">
+                        <img src={rectifiedImage} className="result-image" alt="Rectified" />
+                    </div>
+                </div>
+            );
+
+            const canRectify = workflowMode === 'quadrilateral'
+                ? points.length === 4
+                : (verticalLines.length >= 2 && horizontalLines.length >= 2);
+
+            return (
+                <div className="h-screen flex flex-col">
+                    <header className="header">
+                        <div style={{display:'flex', alignItems:'center', gap:10, minWidth:0}}>
+                            <div className="brand">
+                                <span className="brand-mark"><BrandMark size={14} /></span>
+                                <span className="brand-text">Raddrizzatore</span>
+                                <span className="brand-version">V3</span>
+                            </div>
+                            <div className="div-v"></div>
+                            <div className="seg">
+                                <button
+                                    onClick={() => { setWorkflowMode('quadrilateral'); resetData(); }}
+                                    className={`seg-btn ${workflowMode === 'quadrilateral' ? 'seg-btn-active' : ''}`}>
+                                    4 Punti
+                                </button>
+                                <button
+                                    onClick={() => { setWorkflowMode('lines'); resetData(); }}
+                                    className={`seg-btn ${workflowMode === 'lines' ? 'seg-btn-active' : ''}`}>
+                                    Linee
+                                </button>
+                            </div>
+
+                            {workflowMode === 'quadrilateral' && (
+                                <>
+                                    <div className="div-v"></div>
+                                    <span className="counter">
+                                        <span className="counter-label">Punti</span>
+                                        <span className={points.length === 4 ? 'counter-val counter-val-ok' : 'counter-val counter-val-pending'}>
+                                            {points.length}/4
+                                        </span>
+                                    </span>
+                                    <label className="label-inline" title="Raddrizza l'intera immagine usando i 4 punti come riferimento, senza croppare">
+                                        <input type="checkbox" className="chk" checked={keepWholeImage} onChange={e => setKeepWholeImage(e.target.checked)} />
+                                        Mantieni intera
+                                    </label>
+                                </>
+                            )}
+
+                            {workflowMode === 'lines' && (
+                                <>
+                                    <div className="div-v"></div>
+                                    <div style={{display:'flex', gap:6}}>
+                                        <button
+                                            onClick={() => { setActiveLineType(activeLineType === 'vertical' ? null : 'vertical'); setSelectedLine(null); }}
+                                            className={`chip ${activeLineType === 'vertical' ? 'chip-v-active' : ''}`}>
+                                            <span className="chip-letter">V</span>
+                                            <span className="chip-count mono">{verticalLines.length}</span>
+                                        </button>
+                                        <button
+                                            onClick={() => { setActiveLineType(activeLineType === 'horizontal' ? null : 'horizontal'); setSelectedLine(null); }}
+                                            className={`chip ${activeLineType === 'horizontal' ? 'chip-h-active' : ''}`}>
+                                            <span className="chip-letter">O</span>
+                                            <span className="chip-count mono">{horizontalLines.length}</span>
+                                        </button>
+                                    </div>
+                                    {selectedLine && (
+                                        <button onClick={deleteSelectedLine} className="btn btn-danger">
+                                            <TrashIcon />
+                                            Elimina
+                                        </button>
+                                    )}
+                                    <div className="div-v"></div>
+                                    <label className="label-inline">
+                                        <input type="checkbox" className="chk" checked={showPreview} onChange={e => setShowPreview(e.target.checked)} />
+                                        Preview
+                                    </label>
+                                    <label className="label-inline">
+                                        <input type="checkbox" className="chk" checked={showOverlay} onChange={e => setShowOverlay(e.target.checked)} />
+                                        Oscura
+                                    </label>
+                                    {showOverlay && (
+                                        <input type="range" min="0.1" max="0.8" step="0.1" value={overlayOpacity}
+                                            onChange={e => setOverlayOpacity(parseFloat(e.target.value))}
+                                            className="rng" style={{width:80}} />
+                                    )}
+                                </>
+                            )}
+                        </div>
+
+                        <div style={{display:'flex', alignItems:'center', gap:14}}>
+                            <label className="label-inline">
+                                <input type="checkbox" className="chk" checked={autoSize} onChange={e => setAutoSize(e.target.checked)} />
+                                Auto size
+                            </label>
+                            <button onClick={applyRectification} disabled={!canRectify || isProcessing} className="btn-primary">
+                                {isProcessing ? (<><span className="spinner"></span>Elaboro</>) : 'Raddrizza'}
+                            </button>
+                        </div>
+                    </header>
+
+                    <div className="flex-1 flex" style={{minHeight:0}}>
+                        <div
+                            ref={containerRef}
+                            className={`relative overflow-hidden canvas-container ${showPreview && previewImage ? 'w-1/2' : 'w-full'}`}>
+                            <canvas ref={canvasRef}
+                                onMouseDown={handleMouseDown}
+                                onMouseMove={handleMouseMove}
+                                onMouseUp={handleMouseUp}
+                                onMouseLeave={handleMouseUp}
+                                onAuxClick={(e) => { if (e.button === 1) e.preventDefault(); }}
+                                onContextMenu={(e) => e.preventDefault()}
+                                className={`w-full h-full ${isPanning ? 'cursor-grabbing' : (draggingLinePoint ? 'cursor-move' : (activeLineType ? 'cursor-crosshair' : 'cursor-default'))}`} />
+
+                            <div className="hud">
+                                <div className="hud-row">
+                                    <span><span className="hud-label">zoom</span> <span className="hud-val">{Math.round(view.zoom * 100)}%</span></span>
+                                    <span><span className="hud-label">x</span> <span className="hud-val">{Math.round(mouseImagePos.x)}</span></span>
+                                    <span><span className="hud-label">y</span> <span className="hud-val">{Math.round(mouseImagePos.y)}</span></span>
+                                </div>
+                                <div className="hud-hint">
+                                    <kbd>scroll</kbd> zoom · <kbd>ctrl+click</kbd> pan · <kbd>del</kbd> elimina
+                                </div>
+                            </div>
+                        </div>
+
+                        {showPreview && previewImage && (
+                            <div className="preview-panel">
+                                <div className="preview-header">
+                                    <span>Anteprima</span>
+                                    <span><span className="preview-live-dot"></span>live</span>
+                                </div>
+                                <div className="preview-image-wrap">
+                                    <img src={previewImage} className="preview-image" alt="Preview" />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<PerspectiveRectifier />);
+    </script>
+</body>
+</html>
