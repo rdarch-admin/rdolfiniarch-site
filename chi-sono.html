@@ -12,14 +12,14 @@ nav_active: chi-sono
   <meta property="og:title" content="Roberto Dolfini — Architetto e BIM Consultant | R.Dolfini Arch.">
   <meta property="og:description" content="Architetto e BIM consultant a Firenze. Progettazione architettonica, consulenza BIM e visualizzazione immersiva.">
   <meta property="og:url" content="https://www.rdolfiniarch.it/chi-sono.html">
-  <link rel="stylesheet" href="css/style.css?v=16">
+  <link rel="stylesheet" href="css/style.css?v=17">
 </head>
 <body>
 
   {% include header.html %}
 
   <!-- ========== PAGE HEADER ========== -->
-  <section class="page-header">    <div class="container">
+  <section class="page-header page-header--compact">    <div class="container">
       <div class="page-header__accent">
         <span class="label">Profilo</span>
       </div>
@@ -28,7 +28,7 @@ nav_active: chi-sono
   </section>
 
   <!-- ========== BIO ========== -->
-  <section class="section">
+  <section class="section section--bio">
     <div class="container">
       <div class="about-preview">
         <div class="about-preview__image">
@@ -55,13 +55,7 @@ nav_active: chi-sono
   </section>
 
   <!-- ========== COMPETENZE ========== -->
-  <section class="section">
-    <div class="container">
-      <hr class="section__divider">
-    </div>
-  </section>
-
-  <section class="section">
+  <section class="section section--skills">
     <div class="container">
       <div class="section__header">
         <span class="label section__label">Competenze</span>
@@ -83,7 +77,6 @@ nav_active: chi-sono
             <li>Blender</li>
             <li>Unreal Engine</li>
             <li>Oculus Quest 3</li>
-            <li>V-Ray</li>
           </ul>
         </div>
         <div class="skill-group">
@@ -92,24 +85,60 @@ nav_active: chi-sono
             <li>Python</li>
             <li>PyRevit</li>
             <li>Grasshopper</li>
-            <li>C# (Revit API)</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <h4>Metodo</h4>
-          <ul>
-            <li>BIM Execution Plan</li>
-            <li>Coordinamento modelli</li>
-            <li>CDE Management</li>
-            <li>Standard ISO 19650</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
+  <style>
+    /* TEST spazi Chi sono: per tornare indietro basta cancellare questo blocco
+       e le classi --compact / --bio / --skills */
+    .page-header--compact {
+      padding-top: calc(var(--nav-height) + var(--space-2xl));
+      padding-bottom: var(--space-md);
+    }
+    .section--bio {
+      padding-top: var(--space-lg);
+      padding-bottom: var(--space-2xl);
+    }
+    .section--bio .about-preview {
+      grid-template-columns: 2fr 3fr;
+      gap: var(--space-2xl);
+    }
+    .section--skills {
+      padding-top: 0;
+    }
+    .section--skills .container {
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-2xl);
+    }
+    .section--skills .section__header {
+      margin-bottom: var(--space-lg);
+    }
+    .section--skills .skills-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 768px) {
+      .section--bio {
+        padding-top: var(--space-md);
+        padding-bottom: var(--space-xl);
+      }
+      .section--bio .about-preview {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+      }
+      .section--skills .container {
+        padding-top: var(--space-xl);
+      }
+      .section--skills .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
   {% include footer.html %}
 
-  <script src="js/main.js?v=13"></script>
+  <script src="js/main.js?v=14"></script>
 </body>
 </html>

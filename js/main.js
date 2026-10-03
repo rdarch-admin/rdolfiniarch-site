@@ -32,8 +32,17 @@
 
   /* Disabilita solo su dispositivi puramente touch (no mouse) */
   var isMobileOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!isMobileOnly) {
+  /* Meno animazioni richieste dal sistema: video fermo */
+  if (reduceMotion) {
+    document.querySelectorAll('video[autoplay]').forEach(function (v) {
+      v.removeAttribute('autoplay');
+      v.pause();
+    });
+  }
+
+  if (!isMobileOnly && !reduceMotion) {
     document.addEventListener('mousemove', function (e) {
       mousePos.x = e.clientX;
       mousePos.y = e.clientY;
