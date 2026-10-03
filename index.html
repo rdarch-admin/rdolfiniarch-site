@@ -12,9 +12,7 @@ nav_active: home
   <meta property="og:title" content="Architetto e BIM Coordinator a Firenze | R.Dolfini Arch.">
   <meta property="og:description" content="Progettazione architettonica e consulenza BIM a Firenze.">
   <meta property="og:url" content="https://www.rdolfiniarch.it/">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/fonts.css">
   <script>if(sessionStorage.getItem('rdarch-intro')){document.documentElement.classList.add('intro-skip');}</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -231,6 +229,24 @@ nav_active: home
       to { stroke-dashoffset: 0; }
     }
 
+    .cs-legal {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 1.25rem;
+      z-index: 3;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .cs-legal a {
+      color: inherit;
+    }
+
     .cs-mail {
       font-family: var(--font-sans);
       font-size: 0.85rem;
@@ -282,6 +298,8 @@ nav_active: home
     <p class="cs-desc">Progettazione architettonica e consulenza BIM a Firenze.</p>
     <a href="mailto:robertodolfiniarch@gmail.com" class="cs-mail">robertodolfiniarch@gmail.com</a>
   </div>
+
+  <p class="cs-legal">P.IVA 16120331000 &middot; <a href="privacy.html">Privacy</a></p>
 
   <!-- Intro screen -->
   <div class="site-intro" id="siteIntro" aria-hidden="true">
