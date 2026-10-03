@@ -9,3 +9,17 @@ exclude:
 
 include:
   - CNAME
+
+plugins:
+  - jekyll-sitemap
+
+# fuori dalla sitemap: il file scaricabile e la privacy (noindex)
+defaults:
+  - scope:
+      path: "downloads"
+    values:
+      sitemap: false
+  - scope:
+      path: "privacy.html"
+    values:
+      sitemap: false
