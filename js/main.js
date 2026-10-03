@@ -29,6 +29,7 @@
   var cursorSpeed = 0.3;
   var cursorVisible = false;
   var cursorHovering = false;
+  var WARM_ZONES = '.cta-section, .btn--primary, .project-filter.active, .success-modal__close:hover';
 
   /* Disabilita solo su dispositivi puramente touch (no mouse) */
   var isMobileOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
@@ -62,6 +63,9 @@
         cursorHovering = isInteractive;
         cursorEl.classList.toggle('custom-cursor--hovering', isInteractive);
       }
+
+      /* Sul terracotta il blend difference da' un grigio-azzurro poco visibile */
+      cursorEl.classList.toggle('custom-cursor--on-warm', !!target.closest(WARM_ZONES));
     });
 
     document.addEventListener('mouseleave', function () {

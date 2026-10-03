@@ -485,6 +485,11 @@ h4 { font-size: var(--text-xl); }
   height: 72px;
 }
 
+.custom-cursor--on-warm {
+  mix-blend-mode: normal;
+  box-shadow: 0 0 0 1px #ffffff;
+}
+
 /* Btn outline sull'hero: mix-blend-mode difference, si inverte sul video */
 .hero__cta .btn--outline {
   color: #ffffff;
@@ -807,10 +812,10 @@ h4 { font-size: var(--text-xl); }
    ABOUT CARD — Home (editorial horizontal)
    ============================================ */
 .about-card {
-  max-width: 920px;
+  max-width: var(--container-max);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   grid-template-rows: 1fr auto auto auto;
   grid-template-areas:
     "media ."
@@ -829,9 +834,8 @@ h4 { font-size: var(--text-xl); }
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  object-position: 56% center; /* foto quadrata: centrata sul soggetto */
 }
 
 .about-card__head {
@@ -883,33 +887,23 @@ h4 { font-size: var(--text-xl); }
   color: var(--color-warm);
 }
 
-/* Mobile: foto piccola accanto al nome, testo sotto */
+/* Mobile: foto a tutta larghezza, testo sotto */
 @media (max-width: 768px) {
   .about-card {
-    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-template-areas:
-      "media head"
-      "lede lede"
-      "link link";
-    column-gap: var(--space-md);
-    row-gap: var(--space-lg);
-  }
-  .about-card__head {
-    align-self: end;
+      "media"
+      "head"
+      "lede"
+      "link";
+    row-gap: var(--space-md);
   }
   .about-card__label {
     margin-bottom: var(--space-xs);
   }
-  .about-card__name {
-    font-size: var(--text-2xl);
-    margin: 0;
-  }
   .about-card__lede {
     font-size: var(--text-base);
-  }
-  .about-card__link {
-    margin-top: 0;
   }
 }
 
@@ -1013,12 +1007,12 @@ h4 { font-size: var(--text-xl); }
   font-size: var(--text-sm);
   color: rgba(255,255,255,0.45);
   margin-bottom: var(--space-xs);
-  transition: color var(--transition-fast), padding-left var(--transition-fast);
+  transition: color var(--transition-fast), transform var(--transition-fast);
 }
 
 .footer__col a:hover {
   color: rgba(255,255,255,0.9);
-  padding-left: 4px;
+  transform: translateX(4px);
 }
 
 .footer__bottom {
